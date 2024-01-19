@@ -3,23 +3,23 @@ from flask import Flask, render_template, redirect, abort
 filters = [
     {
         "name": "Мужчина",
-        "is_done": False
+        "is_done": True
     },
     {
         "name": "Женщина",
-        "is_done": False
+        "is_done": True
     },
     {
         "name": "Один мембер",
-        "is_done": False
+        "is_done": True
     },
     {
         "name": "Два мембера",
-        "is_done": False
+        "is_done": True
     },
     {
         "name": "три и больше",
-        "is_done": False
+        "is_done": True
     },
 ]
 
