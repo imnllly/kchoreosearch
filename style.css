@@ -6,5 +6,6 @@ body {
 
 body img {
     position: relative;
-    top:-350px;
+    right:-570px;
+    bottom:-30px;
 }
