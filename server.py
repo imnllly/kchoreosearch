@@ -1,24 +1,24 @@
-from flask import Flask, render_template, redirect, abort
+from flask import *
 
 filters = [
     {
-        "name": "Мужчина",
+        "name": "Male",
         "is_done": True
     },
     {
-        "name": "Женщина",
+        "name": "Female",
         "is_done": True
     },
     {
-        "name": "Один мембер",
+        "name": "One",
         "is_done": True
     },
     {
-        "name": "Два мембера",
+        "name": "Two",
         "is_done": True
     },
     {
-        "name": "три и больше",
+        "name": "Three",
         "is_done": True
     },
 ]
