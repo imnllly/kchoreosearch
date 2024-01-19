@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Фильтры</title>
+</head>
+<body>
+<h3>Фильтры</h3>
+
+    {% for task in tasks %}
+        {% if task['is_done'] %}
+            <!-- Показываем ссылку на страницу, которая отметит задачу невыполенной -->
+            <li>{{ task['name'] }} <small><a href="/tasks/{{ loop.index0 }}/undone"><img src="\static\frame.png"></a></small>
+            </li>
+        {% else %}
+            <!-- Показываем ссылку на страницу, которая отметит задачу выполенной -->
+            <li>{{ task['name'] }} <small><a href="/tasks/{{ loop.index0 }}/done"><img src="\static\ticked.png"></a></small></li>
+        {% endif %}
+    {% endfor %}
+
+
+</body>
+</html>
