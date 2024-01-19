@@ -1,11 +1,10 @@
-div {
+body {
     background-image: url(../static/background.jpg);
     background-repeat: no-repeat;
     background-size: cover;
-
 }
 
-.logo {
-    background: url("../static/logo.png");
-    background-position: top;
+body img {
+    margin: 10px auto 10px;
+    display: block;
 }
