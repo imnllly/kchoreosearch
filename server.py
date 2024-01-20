@@ -1,5 +1,5 @@
 from flask import *
-
+import sqlite3
 filters = [
     {
         "name": "Male",
@@ -24,9 +24,11 @@ filters = [
 ]
 
 app = Flask(__name__)
-# Эта страница показывает список задач
+
 @app.route('/')
 def index():
+
+
     # Чтобы показать прогресс бар с кол-вом выполненых задач, передадим в шаблон, сколько сделано и сколько их всего
     done_count = len([task for task in filters if task['is_done']])
     count = len(filters)
