@@ -30,8 +30,26 @@
                     <p><input type="search" name="q" class="search" placeholder="Search for the result">
                     <input type="submit" class="submit" value="Search"></p>
                 </form>
-            </div>
+            <p>
+                {% if videos %}
+<!--        <ul>-->
+            {% for video in videos %}
+<!--                <li>-->
+                    <div>
+                        <video src="{{ video[4] }}" width="320" height="240" controls>
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                <br/>
+<!--                </li>-->
+            {% endfor %}
+<!--        </ul>-->
+    {% else %}
+        <p>Нет доступных видео</p>
+    {% endif %}
+            </p>
         </div>
-    </section>
+    </div>
+</section>
 </body>
 </html>
