@@ -3,24 +3,25 @@ import sqlite3
 
 filters = [
     {
-        "name": "Male",
+        "name": "BOY GROUP",
         "is_done": True
     },
     {
-        "name": "Female",
+        "name": "GIRL GROUP",
         "is_done": True
     },
     {
-        "name": "One",
+        "name": "1 MEMBER",
         "is_done": True
     },
     {
-        "name": "Two",
-        "is_done": True
+        "name": "2 MEMBERS",
+        "is_done": True,
     },
     {
-        "name": "Three",
-        "is_done": True
+        "name": "3 MEMBERS",
+
+        "is_done": True,
     },
 ]
 
@@ -60,6 +61,13 @@ def make_undone(id):
         abort(404)
 
     filters[id]["is_done"] = False
+    with sqlite3.connect("horeo.db") as conn:
+        cur = conn.cursor()
+    cur.execute("SELECT * FROM groups WHERE `group` = ?", (filters[id],))
+
+    videos = cur.fetchall()
+    done_count = len([task for task in filters if task['is_done']])
+    count = len(filters)
 
     return redirect('/')
 
