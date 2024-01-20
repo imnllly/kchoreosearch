@@ -1,5 +1,6 @@
 from flask import *
 import sqlite3
+
 filters = [
     {
         "name": "Male",
@@ -27,12 +28,19 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
+    search_query = request.args.get('q')
+    with sqlite3.connect("horeo.db") as conn:
+        cur = conn.cursor()
+        if search_query:
+            cur.execute("SELECT video FROM groups WHERE `group` = ?", (search_query,))
+        else:
+            cur.execute("SELECT video FROM groups")
 
+        videos = cur.fetchall()
+        done_count = len([task for task in filters if task['is_done']])
+        count = len(filters)
+        return render_template('tasks.html', videos=videos, tasks=filters, done_count=done_count, count=count)
 
-    # Чтобы показать прогресс бар с кол-вом выполненых задач, передадим в шаблон, сколько сделано и сколько их всего
-    done_count = len([task for task in filters if task['is_done']])
-    count = len(filters)
-    return render_template("tasks.html", tasks=filters, done_count=done_count, count=count)
 
 # Чтобы пометить, что задача выполена, сделаем страницу /tasks/НОМЕРЗАДАЧИ/done
 @app.route('/tasks/<int:id>/done')
