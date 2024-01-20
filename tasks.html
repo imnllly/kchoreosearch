@@ -6,28 +6,29 @@
     <title>k-pop choreography search</title>
 </head>
 <body>
-    <div class="logo">
-        <img src="../static/logo.png" alt="Logotype">
-    </div>
+    <!-- <div class="logo"> -->
+        <center><img src="../static/logo.png" alt="Logotype"></center>
+    <!-- </div> -->
     <section>
         <div class="container">
             <div class="frame">
-                <p class="filter">BOY/GIRL GROUP</p>
-                {% for task in tasks %}
+                <p class="filter">TAGS</p>
+                <div class="tags"><center>{% for task in tasks %}
         {% if task['is_done'] %}
             <!-- Показываем ссылку на страницу, которая отметит задачу невыполенной -->
-            <ul><li>{{ task['name'] }} <small><a href="/tasks/{{ loop.index0 }}/undone"><img src="\static\frame.png"></a></small>
-            </li></ul>
+            <ul>{{ task['name'] }} <small><a href="/tasks/{{ loop.index0 }}/undone"><img src="\static\frame.png"></a></small>
+            </ul>
         {% else %}
             <!-- Показываем ссылку на страницу, которая отметит задачу выполенной -->
-            <ul><li>{{ task['name'] }} <small><a href="/tasks/{{ loop.index0 }}/done"><img src="\static\ticked.png"></a></small></li></ul>
+            <ul>{{ task['name'] }} <small><a href="/tasks/{{ loop.index0 }}/done"><img src="\static\ticked.png"></a></small></ul>
         {% endif %}
-    {% endfor %}
+    {% endfor %} </center>
+                    </div>
             </div>
             <div class="frame2">
                 <form>
-                    <p><input type="search" name="q" placeholder="Поиск по сайту">
-                    <input type="submit" value="Найти"></p>
+                    <p><input type="search" name="q" class="search" placeholder="Search for the result">
+                    <input type="submit" class="submit" value="Search"></p>
                 </form>
             </div>
         </div>
