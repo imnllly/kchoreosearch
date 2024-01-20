@@ -1,38 +1,37 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel ="stylesheet" href="style.css">
+    <link rel ="stylesheet" href="/static/style.css">
     <title>k-pop choreography search</title>
-
 </head>
 <body>
- <img src="../static/logo.png" alt="Logotype">
+    <img src="../static/logo.png" alt="Logotype">
     <section>
-    <div class="container">
-        <div class="frame"></div>
-        <div class="frame2"></div>
-    </div>
+        <div class="container">
+            <div class="frame">
+                <h3>Фильтры</h3>
+                {% for task in tasks %}
+                    <li>
+                        {{ task['name'] }}
+                        <small>
+                            {% if task['is_done'] %}
+                                <img src="{{ url_for('static', filename='frame.png') }}">
+                            {% else %}
+                                <img src="{{ url_for('static', filename='ticked.png') }}">
+                            {% endif %}
+                            <a href="{% if task['is_done'] %}/tasks/{{ loop.index0 }}/undone{% else %}/tasks/{{ loop.index0 }}/done{% endif %}"></a>
+                        </small>
+                    </li>
+                {% endfor %}
+            </div>
+            <div class="frame2">
+                <form>
+                    <p><input type="search" name="q" placeholder="Поиск по сайту">
+                    <input type="submit" value="Найти"></p>
+                </form>
+            </div>
+        </div>
     </section>
- <form>
-   <p><input type="search" name="q" placeholder="Поиск по сайту">
-   <input type="submit" value="Найти"></p>
-  </form>
- <div>
-<h3>Фильтры</h3>
-
-    {% for task in tasks %}
-        {% if task['is_done'] %}
-            <!-- Показываем ссылку на страницу, которая отметит задачу невыполенной -->
-            <li>{{ task['name'] }} <small><a href="/tasks/{{ loop.index0 }}/undone"><img src="\static\frame.png"></a></small>
-            </li>
-        {% else %}
-            <!-- Показываем ссылку на страницу, которая отметит задачу выполенной -->
-            <li>{{ task['name'] }} <small><a href="/tasks/{{ loop.index0 }}/done"><img src="\static\ticked.png"></a></small></li>
-        {% endif %}
-    {% endfor %}
-</div>
-
 </body>
 </html>
