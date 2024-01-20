@@ -12,20 +12,17 @@
     <section>
         <div class="container">
             <div class="frame">
-                <h3>Фильтры</h3>
+                <h3>BOY/GIRL GROUP</h3>
                 {% for task in tasks %}
-                    <li>
-                        {{ task['name'] }}
-                        <small>
-                            {% if task['is_done'] %}
-                                <img src="{{ url_for('static', filename='frame.png') }}">
-                            {% else %}
-                                <img src="{{ url_for('static', filename='ticked.png') }}">
-                            {% endif %}
-                            <a href="{% if task['is_done'] %}/tasks/{{ loop.index0 }}/undone{% else %}/tasks/{{ loop.index0 }}/done{% endif %}"></a>
-                        </small>
-                    </li>
-                {% endfor %}
+        {% if task['is_done'] %}
+            <!-- Показываем ссылку на страницу, которая отметит задачу невыполенной -->
+            <ul><li>{{ task['name'] }} <small><a href="/tasks/{{ loop.index0 }}/undone"><img src="\static\frame.png"></a></small>
+            </li></ul>
+        {% else %}
+            <!-- Показываем ссылку на страницу, которая отметит задачу выполенной -->
+            <ul><li>{{ task['name'] }} <small><a href="/tasks/{{ loop.index0 }}/done"><img src="\static\ticked.png"></a></small></li></ul>
+        {% endif %}
+    {% endfor %}
             </div>
             <div class="frame2">
                 <form>
