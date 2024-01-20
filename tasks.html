@@ -36,16 +36,16 @@
             {% for video in videos %}
 <!--                <li>-->
                     <div>
-                        <video src="{{ video[4] }}" width="320" height="240" controls>
+                        <center><video src="{{ video[4] }}" width="320" height="240" controls>
                             Your browser does not support the video tag.
-                        </video>
+                        </video></center>
                     </div>
                 <br/>
 <!--                </li>-->
             {% endfor %}
 <!--        </ul>-->
     {% else %}
-        <p>Нет доступных видео</p>
+        <center><p>Нет доступных видео</p></center>
     {% endif %}
             </p>
         </div>
