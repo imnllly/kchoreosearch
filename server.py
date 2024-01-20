@@ -26,15 +26,15 @@ filters = [
 
 app = Flask(__name__)
 
+
 @app.route('/')
 def index():
     search_query = request.args.get('q')
     with sqlite3.connect("horeo.db") as conn:
         cur = conn.cursor()
         if search_query:
-            cur.execute("SELECT video FROM groups WHERE `group` = ?", (search_query,))
-        else:
-            cur.execute("SELECT video FROM groups")
+            cur.execute("SELECT * FROM groups WHERE `group` = ?", (search_query,))
+
 
         videos = cur.fetchall()
         done_count = len([task for task in filters if task['is_done']])
