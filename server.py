@@ -1,75 +1,75 @@
-from flask import *
+from flask import Flask, render_template, request
 import sqlite3
 
-filters = [
-    {
-        "name": "BOY GROUP",
-        "is_done": True
-    },
-    {
-        "name": "GIRL GROUP",
-        "is_done": True
-    },
-    {
-        "name": "1 MEMBER",
-        "is_done": True
-    },
-    {
-        "name": "2 MEMBERS",
-        "is_done": True,
-    },
-    {
-        "name": "3 MEMBERS",
-
-        "is_done": True,
-    },
-]
-
 app = Flask(__name__)
+
+filter_groups = [
+    {
+        "title": "gender",
+        "filters": [
+            {
+                "name": "BOY GROUP",
+                "code": 'male'
+            },
+            {
+                "name": "GIRL GROUP",
+                "code": 'female'
+            }
+        ]
+    },
+    {
+        "title": "number",
+        "filters": [
+            {
+                "name": "1 MEMBER",
+                "code": 'members_1'
+            },
+            {
+                "name": "2 MEMBERS",
+                "code": 'members_2'
+            },
+            {
+                "name": "3 MEMBERS",
+                "code": 'members_3'
+            },
+            {
+                "name": "4 MEMBERS",
+                "code": 'members_4'
+            },
+            {
+                "name": "5 MEMBERS",
+                "code": 'members_5'
+            },
+            {
+                "name": "6 MEMBERS",
+                "code": 'members_6'
+            },
+            {
+                "name": "7 MEMBERS",
+                "code": 'members_7'
+            },
+        ]
+    }
+]
 
 
 @app.route('/')
 def index():
-    search_query = request.args.get('q')
+    search_query = request.args.get('q') or ""
     with sqlite3.connect("horeo.db") as conn:
         cur = conn.cursor()
-        if search_query:
-            cur.execute("SELECT * FROM groups WHERE `group` = ?", (search_query,))
-
-
+        cur.execute("SELECT * FROM groups WHERE `group` like ?", ('%' + search_query + '%',))
         videos = cur.fetchall()
-        done_count = len([task for task in filters if task['is_done']])
-        count = len(filters)
-        return render_template('tasks.html', videos=videos, tasks=filters, done_count=done_count, count=count)
+
+        filtered_videos = []
+
+        for video in videos:
+            if len(request.args) <= 1 or set(video[6].split(',')).intersection(set(request.args)):
+                filtered_videos.append(video[4])
+                print(video[4])
+
+        return render_template('tasks.html', videos=filtered_videos, filter_groups=filter_groups)
 
 
-# Чтобы пометить, что задача выполена, сделаем страницу /tasks/НОМЕРЗАДАЧИ/done
-@app.route('/tasks/<int:id>/done')
-def make_done(id):
-    if id < 0 or id >= len(filters):
-        abort(404)
-
-    filters[id]["is_done"] = True
-
-    # Поскольку у нас уже есть страница с отображением списка задач, можем просто перенаправить туда пользователя
-    return redirect('/')
-
-
-@app.route('/tasks/<int:id>/undone')
-def make_undone(id):
-    if id < 0 or id >= len(filters):
-        abort(404)
-
-    filters[id]["is_done"] = False
-    with sqlite3.connect("horeo.db") as conn:
-        cur = conn.cursor()
-    cur.execute("SELECT * FROM groups WHERE `group` = ?", (filters[id],))
-
-    videos = cur.fetchall()
-    done_count = len([task for task in filters if task['is_done']])
-    count = len(filters)
-
-    return redirect('/')
-
-
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
