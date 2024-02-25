@@ -2,54 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel ="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>k-pop choreography search</title>
 </head>
 <body>
-    <!-- <div class="logo"> -->
-        <center><img src="../static/logo.png" alt="Logotype"></center>
-    <!-- </div> -->
-    <section>
+<div class="logo">
+    <img src="../static/logo.png" alt="Logotype">
+</div>
+<section>
+    <form>
         <div class="container">
+
             <div class="frame">
+
                 <p class="filter">TAGS</p>
-                <div class="tags"><center>{% for task in tasks %}
-        {% if task['is_done'] %}
-            <!-- Показываем ссылку на страницу, которая отметит задачу невыполенной -->
-            <ul>{{ task['name'] }} <small><a href="/tasks/{{ loop.index0 }}/undone"><img src="\static\frame.png"></a></small>
-            </ul>
-        {% else %}
-            <!-- Показываем ссылку на страницу, которая отметит задачу выполенной -->
-            <ul>{{ task['name'] }} <small><a href="/tasks/{{ loop.index0 }}/done"><img src="\static\ticked.png"></a></small></ul>
-        {% endif %}
-    {% endfor %} </center>
-                    </div>
+                <div class="tags">
+                    {% for group in filter_groups %}
+                    <h5>{{ group['title'] }}</h5>
+                    <center>
+                        {% for filter in group['filters'] %}
+                        {% if filter['code'] in request.args %}
+                        <input type="checkbox" name="{{ filter['code'] }}" checked> {{ filter['name'] }}
+                        <br>
+                        {% else %}
+                        <input type="checkbox" name="{{ filter['code'] }}"> {{ filter['name'] }} <br>
+                        {% endif %}
+                        {% endfor %}
+                    </center>
+                    {% endfor %}
+                    <button type="submit">Показать</button>
+                </div>
             </div>
             <div class="frame2">
-                <form>
-                    <p><input type="search" name="q" class="search" placeholder="Search for the result">
+                <p><input type="search" name="q" class="search" placeholder="Search for the result"
+                          value="{{ request.args.get('q', '') }}">
                     <input type="submit" class="submit" value="Search"></p>
-                </form>
-            <p>
-                {% if videos %}
-<!--        <ul>-->
-            {% for video in videos %}
-<!--                <li>-->
-                    <div>
-                        <center><video src="{{ video[4] }}" width="320" height="240" controls>
+
+                <p>
+                    {% if videos %}
+                    {% for video in videos %}
+                <div>
+                    <center>
+                        <video width="320" height="240" controls>
+                            <source src="{{ video }}" type="video/mp4">
                             Your browser does not support the video tag.
-                        </video></center>
-                    </div>
+                        </video>
+                    </center>
+                </div>
                 <br/>
-<!--                </li>-->
-            {% endfor %}
-<!--        </ul>-->
-    {% else %}
-        <center><p>Нет доступных видео</p></center>
-    {% endif %}
-            </p>
+                {% endfor %}
+                {% else %}
+                <center><p>Нет доступных видео</p></center>
+                {% endif %}
+                </p>
+            </div>
+
         </div>
-    </div>
+    </form>
 </section>
 </body>
 </html>
