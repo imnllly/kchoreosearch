@@ -66,7 +66,7 @@ def index():
         for video in videos:
             if len(request.args) <= 1 or set(video[6].split(',')).intersection(set(request.args)):
                 filtered_videos.append(video[4])
-                print(video[4])
+
 
         return render_template('tasks.html', videos=filtered_videos, filter_groups=filter_groups)
 
