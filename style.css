@@ -1,36 +1,30 @@
 body {
     background-image: url(../static/background.jpg);
+    background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-/*.logo {
-    position: relative;
-    right:-20px;
-    bottom:-30px;
-}*/
 
 .container {
     display: flex;
 }
 
 .frame {
-    width: 430px;
-    height: 660px;
+    width: 20%;
     position: relative;
-    right:-50px;
-    bottom:-70px;
-    border-radius: 50px 50px 0 0;
+    right: -3%;
+    bottom: -70px;
+    border-radius: 50px;
     background-image: linear-gradient(180deg, #f7dcf9, #b896ec 100%, #edd4f8);
 }
 
  .frame2 {
-    width: 1200px;
-    height: 660px;
+    width: 65%;
     position: relative;
     bottom: -70px;
-    right: -105px;
-    border-radius: 50px 50px 0 0;
+    right: -6%;
+    border-radius: 50px;
     background-image: linear-gradient(180deg, #f7dcf9, #b896ec 100%, #edd4f8);
  }
 
@@ -46,7 +40,7 @@ body {
 p {
     font-family: 'Bornia', sans-serif;
     color: #885DAB;
-    font-size: 25px;
+    font-size: 160%;
     text-align: center;
 }
 
@@ -60,7 +54,7 @@ p {
 }
 
 .submit {
-    width: 80px;
+    width: 7%;
     height: 35px;
     background: #9DA2CE;
     border-radius: 15px;
@@ -71,7 +65,7 @@ p {
 .tags {
     font-family: 'Bornia', sans-serif;
     color: #9774AF;
-    font-size: 25px;
+    font-size: 155%;
     text-align: center;
     bottom: -50px;
 }
