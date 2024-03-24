@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>k-pop choreography search</title>
+    <style>
+        .videos-container {
+            display: flex;
+        }
+
+        .column {
+            flex: 1;
+            padding: 10px;
+        }
+
+        .video-card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="logo">
+    <img src="../static/logo.png" alt="Logotype">
+</div>
+<section>
+    <form>
+        <div class="container">
+
+            <div class="frame">
+
+                <p class="filter">TAGS</p>
+                <div class="tags">
+                    {% for group in filter_groups %}
+                    <h5>{{ group['title'] }}</h5>
+                    <center>
+                        {% for filter in group['filters'] %}
+                        {% if filter['code'] in request.args %}
+                        <input type="checkbox" name="{{ filter['code'] }}" checked> {{ filter['name'] }}
+                        <br>
+                        {% else %}
+                        <input type="checkbox" name="{{ filter['code'] }}"> {{ filter['name'] }} <br>
+                        {% endif %}
+                        {% endfor %}
+                    </center>
+                    {% endfor %}
+                    <button type="submit">Показать</button>
+                </div>
+            </div>
+            <div class="frame2">
+                <p><input type="search" name="q" class="search" placeholder="Search for the result"
+                          value="{{ request.args.get('q', '') }}">
+                    <input type="submit" class="submit" value="Search"></p>
+
+                <p>
+                    {% if videos %}
+                <div class="videos-container">
+                    <div class="column">
+                        {% for video in videos %}
+                        {% if loop.index is even %}
+                        <div class="video-card">
+                            <iframe width="320" height="240" src="{{ video }}"></iframe>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="column">
+                        {% for video in videos %}
+                        {% if loop.index is odd %}
+                        <div class="video-card">
+                            <iframe width="320" height="240" src="{{ video }}"></iframe>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                <center><p>Нет доступных видео</p></center>
+                {% endif %}
+                </p>
+            </div>
+
+        </div>
+    </form>
+</section>
+</body>
+</html>
