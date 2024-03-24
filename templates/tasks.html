@@ -18,7 +18,6 @@
             margin-bottom: 20px;
         }
     </style>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <div class="logo">
@@ -49,18 +48,19 @@
                 </div>
             </div>
             <div class="frame2">
-                <p><input type="search" name="q" class="search" placeholder="Search for the result"
-                          value="{{ request.args.get('q', '') }}">
-                    <input type="submit" class="submit" value="Search"></p>
-
-                <p>
+                <div class="searchbar">
+                    <p><input type="search" name="q" class="search" placeholder="Search for the result"
+                              value="{{ request.args.get('q', '') }}">
+                        <input type="submit" class="submit" value="Search"></p>
+                    <p>
+                </div>
                     {% if videos %}
                 <div class="videos-container">
                     <div class="column">
                         {% for video in videos %}
                         {% if loop.index is even %}
                         <div class="video-card">
-                            <iframe width="320" height="240" src="{{ video }}"></iframe>
+                            <center><iframe width="320" height="240" src="{{ video }}"></iframe></center>
                         </div>
                         {% endif %}
                         {% endfor %}
@@ -69,7 +69,7 @@
                         {% for video in videos %}
                         {% if loop.index is odd %}
                         <div class="video-card">
-                            <iframe width="320" height="240" src="{{ video }}"></iframe>
+                            <center><iframe width="320" height="240" src="{{ video }}"></iframe></center>
                         </div>
                         {% endif %}
                         {% endfor %}
