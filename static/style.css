@@ -15,7 +15,7 @@ body {
     position: relative;
     right:-50px;
     bottom:-70px;
-    border-radius: 50px;
+    border-radius: 70px;
     background-image: linear-gradient(180deg, #f7dcf9, #b896ec 100%, #edd4f8);
 }
 
@@ -23,9 +23,11 @@ body {
     width: 1200px;
     position: relative;
     bottom: -70px;
+    display: flex;
     right: -105px;
-    border-radius: 50px;
+    border-radius: 70px;
     background-image: linear-gradient(180deg, #f7dcf9, #b896ec 100%, #edd4f8);
+    flex-direction: column;
  }
 
 .filter {
@@ -49,17 +51,21 @@ p {
     height: 35px;
     background: #C09DED;
     color: #FBF2FD;
-    border-radius: 15px;
+    border-radius: 20px;
     border: none;
+    flex: 1;
+    padding: 10px;
 }
 
 .submit {
     width: 80px;
     height: 35px;
     background: #9DA2CE;
-    border-radius: 15px;
+    border-radius: 20px;
     color: #FBF2FD;
     border: none;
+    flex: 1;
+    padding: 10px;
 }
 
 .tags {
@@ -71,6 +77,7 @@ p {
 }
 .videos-container {
     display: flex;
+    justify-content: flex-end;
 }
 
 .column {
@@ -80,4 +87,8 @@ p {
 
 .video-card {
     margin-bottom: 20px;
+}
+
+.searchbar {
+    position: top;
 }
