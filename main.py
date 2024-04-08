@@ -16,6 +16,10 @@ filter_groups = [
             {
                 "name": "GIRL GROUP",
                 "code": 'female'
+            },
+            {
+                "name": "SWITCH GROUP",
+                "code": 'switch'
             }
         ]
     },
@@ -57,7 +61,6 @@ filter_groups = [
 
 @app.route('/')
 def index():
-
     search_query = request.args.get('q') or ""
     with sqlite3.connect("horeo.db") as conn:
         cur = conn.cursor()
