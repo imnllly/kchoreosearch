@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="/static/my_script.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>k-pop choreography search</title>
     <style>
@@ -24,13 +25,17 @@
 <div class="logo">
     <img src="../static/logo.png" alt="Logotype">
 </div>
+
+        <button id="en" class="translate_en header-item-lang-en"><img src="../static/uk.png" width="50" height="40"></button>
+
+        <button id="ru" class="translate_rus header-item-lang-en"><img src="../static/rus.jpg" width="50" height="40"></button>
 <section>
     <form>
         <div class="container">
 
             <div class="frame">
 
-                <p class="filter">FILTERS</p>
+                <p class="filter lang" key="FILTERS">FILTERS</p>
                 <div class="tags">
                     {% for group in filter_groups %}
                     <h5>{{ group['title'] }}</h5>
@@ -45,39 +50,47 @@
                         {% endfor %}
                     </center>
                     {% endfor %}
-                    <button type="submit">submit</button>
+                    <input type="submit" class="submit" value="Search"></p>
                 </div>
             </div>
             <div class="frame2">
-                <div class="searchbar">
+                <div class="searchbar lang"key="">
                     <p><input type="search" name="q" class="search" placeholder="Search for the result"
                               value="{{ request.args.get('q', '') }}">
                         <input type="submit" class="submit" value="Search"></p>
                     <p>
                 </div>
-                    {% if videos %}
+                {% if videos %}
                 <div class="videos-container">
+
                     <div class="column">
-                        {% for video in videos %}
-                        {% if loop.index is even %}
-                        <div class="video-card">
-                            <center><iframe width="320" height="240" src="{{ video }}"></iframe></center>
-                        </div>
-                        {% endif %}
-                        {% endfor %}
+                        <center>
+                            {% for video in videos %}
+                            {% if loop.index is even %}
+                            <div class="video-card">
+                                <center>
+                                    <iframe width="320" height="240" src="{{ video }}"></iframe>
+                                </center>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </center>
                     </div>
                     <div class="column">
+
                         {% for video in videos %}
                         {% if loop.index is odd %}
                         <div class="video-card">
-                            <center><iframe width="320" height="240" src="{{ video }}"></iframe></center>
+                            <center>
+                                <iframe width="320" height="240" src="{{ video }}"></iframe>
+                            </center>
                         </div>
                         {% endif %}
                         {% endfor %}
                     </div>
                 </div>
                 {% else %}
-                <center><p>Нет доступных видео</p></center>
+                <center><p class = "lang" key="zero">Нет доступных видео</p></center>
                 {% endif %}
                 </p>
             </div>

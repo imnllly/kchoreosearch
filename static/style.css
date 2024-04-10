@@ -7,7 +7,23 @@ body {
 
 .container {
     display: flex;
-    justify-content: center;
+    justify-content: center; 
+}
+.translate_en,
+.translate_rus {
+    cursor: pointer;
+
+    margin-left: 12px;
+    position: absolute;
+    top: 10px;
+}
+
+.translate_en {
+    right: 10px;
+}
+
+.translate_rus {
+    right: 90px;
 }
 
 .frame, .frame2 {
