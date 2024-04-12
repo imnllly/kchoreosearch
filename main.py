@@ -28,6 +28,7 @@ filter_groups = [
         "filters": [
             {
                 "name": "1 MEMBER",
+                "translate": "1 УЧАСТНИК",
                 "code": 'members_1'
             },
             {

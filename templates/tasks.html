@@ -26,16 +26,34 @@
     <img src="../static/logo.png" alt="Logotype">
 </div>
 
-        <button id="en" class="translate_en header-item-lang-en"><img src="../static/uk.png" width="50" height="40"></button>
+<button id="en" class="translate_en header-item-lang-en"><img src="../static/uk.png" width="50" height="40"></button>
 
-        <button id="ru" class="translate_rus header-item-lang-en"><img src="../static/rus.jpg" width="50" height="40"></button>
+<button id="ru" class="translate_rus header-item-lang-en"><img src="../static/rus.jpg" width="50" height="40"></button>
+
 <section>
     <form>
         <div class="container">
 
             <div class="frame">
 
-                <p class="filter lang" key="FILTERS">FILTERS</p>
+                <p class="filter">FILTERS</p>
+
+                <script>
+                    document.getElementById("en").addEventListener("click", function() {
+                        document.getElementsByClassName("filter")[0].innerHTML = "FILTERS";
+                    });
+
+                    document.getElementById("ru").addEventListener("click", function() {
+                        document.getElementsByClassName("filter")[0].innerHTML = "ФИЛЬТРЫ";
+                    });
+                    document.getElementById("en").addEventListener("click", function() {
+                        document.getElementsByClassName("zero")[0].innerHTML = "no found";
+                    });
+
+                    document.getElementById("ru").addEventListener("click", function() {
+                        document.getElementsByClassName("zero")[0].innerHTML = "нет подходящих видео";
+                    });
+                </script>
                 <div class="tags">
                     {% for group in filter_groups %}
                     <h5>{{ group['title'] }}</h5>
@@ -54,7 +72,7 @@
                 </div>
             </div>
             <div class="frame2">
-                <div class="searchbar lang"key="">
+                <div class="searchbar lang" key="">
                     <p><input type="search" name="q" class="search" placeholder="Search for the result"
                               value="{{ request.args.get('q', '') }}">
                         <input type="submit" class="submit" value="Search"></p>
@@ -90,7 +108,7 @@
                     </div>
                 </div>
                 {% else %}
-                <center><p class = "lang" key="zero">Нет доступных видео</p></center>
+                <center><p class = "zero"> no found</p></center>
                 {% endif %}
                 </p>
             </div>
