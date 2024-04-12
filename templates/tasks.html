@@ -39,24 +39,50 @@
                 <p class="filter">FILTERS</p>
 
                 <script>
+                    const translations = {
+                        "gender": "пол комманды",
+                        "number": "число",
+                        "BOY GROUP": "МУЖСКАЯ ГРУППА",
+                        "GIRL GROUP": "ЖЕНСКАЯ ГРУППА",
+                        "SWITCH GROUP": "СМЕШАННАЯ ГРУППА",
+                        "1 MEMBER": "1 УЧАСТНИК",
+                        "2 MEMBERS": "2 УЧАСТНИКА",
+                        "3 MEMBERS": "3 УЧАСТНИКА",
+                        "4 MEMBERS": "4 УЧАСТНИКА",
+                        "5 MEMBERS": "5 УЧАСТНИКОВ",
+                        "6 MEMBERS": "6 УЧАСТНИКОВ",
+                        "7 MEMBERS": "7 УЧАСТНИКОВ"
+                    };
+
                     document.getElementById("en").addEventListener("click", function() {
                         document.getElementsByClassName("filter")[0].innerHTML = "FILTERS";
+                        translateTags("en");
                     });
 
                     document.getElementById("ru").addEventListener("click", function() {
                         document.getElementsByClassName("filter")[0].innerHTML = "ФИЛЬТРЫ";
-                    });
-                    document.getElementById("en").addEventListener("click", function() {
-                        document.getElementsByClassName("zero")[0].innerHTML = "no found";
+                        translateTags("ru");
                     });
 
-                    document.getElementById("ru").addEventListener("click", function() {
-                        document.getElementsByClassName("zero")[0].innerHTML = "нет подходящих видео";
-                    });
+                    function translateTags(lang) {
+                        document.querySelectorAll(".tags h5").forEach(function(tag) {
+                            const originalText = tag.innerText;
+                            if (translations[originalText]) {
+                                tag.innerText = lang === "en" ? originalText : translations[originalText];
+                            }
+                        });
+
+                        document.querySelectorAll(".tags input[type='checkbox']").forEach(function(checkbox) {
+                            const originalText = checkbox.nextElementSibling.innerText;
+                            if (translations[originalText]) {
+                                checkbox.nextElementSibling.innerText = lang === "en" ? originalText : translations[originalText];
+                            }
+                        });
+                    }
                 </script>
                 <div class="tags">
                     {% for group in filter_groups %}
-                    <h5>{{ group['title'] }}</h5>
+                    <h5 class="title">{{ group['title'] }}</h5>
                     <center>
                         {% for filter in group['filters'] %}
                         {% if filter['code'] in request.args %}
@@ -72,7 +98,7 @@
                 </div>
             </div>
             <div class="frame2">
-                <div class="searchbar lang" key="">
+                <div class="searchbar">
                     <p><input type="search" name="q" class="search" placeholder="Search for the result"
                               value="{{ request.args.get('q', '') }}">
                         <input type="submit" class="submit" value="Search"></p>
@@ -108,7 +134,7 @@
                     </div>
                 </div>
                 {% else %}
-                <center><p class = "zero"> no found</p></center>
+                <center><p class="zero"> no found</p></center>
                 {% endif %}
                 </p>
             </div>
