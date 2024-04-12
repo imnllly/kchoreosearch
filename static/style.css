@@ -7,15 +7,15 @@ body {
 
 .container {
     display: flex;
-    justify-content: center; 
+    justify-content: center;
 }
 .translate_en,
 .translate_rus {
     cursor: pointer;
-
     margin-left: 12px;
     position: absolute;
     top: 10px;
+    border-radius: 12px;
 }
 
 .translate_en {
@@ -69,7 +69,7 @@ p {
 }
 
 .submit {
-    width: 30%;
+    width: 10%;
     height: 35px;
     background: #9DA2CE;
     border-radius: 20px;
