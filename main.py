@@ -5,15 +5,13 @@ import sqlite3
 
 app = Flask(__name__)
 
-#здесь список с группами
 filter_groups = [
     {
-        "title": "gender", #КОД ДЛЯ ТИТЛОВ
-        "translate_title": "группы", #КОД ДЛЯ ПЕРЕВОДА ТИТЛОВ
+        "title": "gender",
         "filters": [
             {
-                "name": "BOY GROUP", #КОД ДЛЯ НАЗВАНИЯ ФИЛЬТРОВ
-                "code": 'male' #КОД ДЛЯ ПЕРЕВОДА ФИЛЬТРОВ
+                "name": "BOY GROUP",
+                "code": 'male'
             },
             {
                 "name": "GIRL GROUP",
@@ -27,7 +25,6 @@ filter_groups = [
     },
     {
         "title": "number",
-        "translate_title": "кол-во участников",
         "filters": [
             {
                 "name": "1 MEMBER",
@@ -36,32 +33,26 @@ filter_groups = [
             },
             {
                 "name": "2 MEMBERS",
-                "translate": "2 УЧАСТНИКа",
                 "code": 'members_2'
             },
             {
                 "name": "3 MEMBERS",
-                "translate": "3 УЧАСТНИКА",
                 "code": 'members_3'
             },
             {
                 "name": "4 MEMBERS",
-                "translate": "4 УЧАСТНИКА",
                 "code": 'members_4'
             },
             {
                 "name": "5 MEMBERS",
-                "translate": "5 УЧАСТНИКОВ",
                 "code": 'members_5'
             },
             {
                 "name": "6 MEMBERS",
-                "translate": "6 УЧАСТНИКОВ",
                 "code": 'members_6'
             },
             {
                 "name": "7 MEMBERS",
-                "translate": "7 УЧАСТНИКОВ",
                 "code": 'members_7'
             },
         ]
