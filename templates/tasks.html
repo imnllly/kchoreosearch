@@ -23,9 +23,9 @@
 <body>
 
 <div class="logo">
-    <img src="../static/logo.png" alt="Logotype">
+    <a href="/"><img src="../static/logo.png" alt="Logotype"></a>
 </div>
-
+<!--вот кнопки для перевода-->
 <button id="en" class="translate_en header-item-lang-en"><img src="../static/uk.png" width="50" height="40"></button>
 
 <button id="ru" class="translate_rus header-item-lang-en"><img src="../static/rus.jpg" width="50" height="40"></button>
@@ -54,22 +54,62 @@
                         document.getElementsByClassName("zero")[0].innerHTML = "нет подходящих видео";
                     });
                 </script>
+                <!--это проблемный div-->
                 <div class="tags">
                     {% for group in filter_groups %}
-                    <h5>{{ group['title'] }}</h5>
+                    <!--здесь я даю в цикле оригинальное название для титлов и переведенное-->
+                    <h5 class="title" data-original-title="{{ group['title'] }}"
+                        data-translated-title="{{ group['translate_title'] }}">
+                        {{ group['title'] }}
+                    </h5>
+
                     <center>
                         {% for filter in group['filters'] %}
                         {% if filter['code'] in request.args %}
-                        <input type="checkbox" name="{{ filter['code'] }}" checked> {{ filter['name'] }}
+                        <!--здесь я даю в цикле оригинальное название для  фильтров и переведенное-->
+                        <input type="checkbox" name="{{ filter['code'] }}" checked class="name"
+                               data-original-title="{{ filter['name'] }}"
+                               data-translated-title="{{ filter['translate'] }}"> {{ filter['name'] }}
                         <br>
                         {% else %}
-                        <input type="checkbox" name="{{ filter['code'] }}"> {{ filter['name'] }} <br>
+                        <!--здесь я даю в цикле оригинальное название для фильтров и переведенное-->
+                        <input type="checkbox" name="{{ filter['code'] }}" class="name"
+                               data-original-title="{{ filter['name'] }}"
+                               data-translated-title="{{ filter['translate'] }}"> {{ filter['name'] }}
+                        <br>
                         {% endif %}
                         {% endfor %}
                     </center>
                     {% endfor %}
-                    <input type="submit" class="submit" value="Search"></p>
+                    <input type="submit" class="submit" value="Search">
                 </div>
+
+
+                <script>
+                    //что делать при нажатии на кнопку en
+                    document.getElementById("en").addEventListener("click", function() {
+                        //на кнопку en меняются титлы на английски/оригинальный
+                        document.querySelectorAll(".title").forEach(function(element) {
+                            element.innerHTML = element.getAttribute("data-original-title");
+                        });
+                        //на кнопку en меняются фильтры на английски/оригинальный
+                        document.querySelectorAll(".name").forEach(function(element) {
+                            element.nextElementSibling.innerHTML = element.getAttribute("data-original-title");
+                        });
+                    });
+                    //что делать при нажатии на кнопку ru
+                    document.getElementById("ru").addEventListener("click", function() {
+                        //на кнопку en меняются титлы на русский
+                        document.querySelectorAll(".title").forEach(function(element) {
+                            element.innerHTML = element.getAttribute("data-translated-title");
+                        });
+                        //на кнопку en меняются фильтры на русский
+                        document.querySelectorAll(".name").forEach(function(element) {
+                            element.nextElementSibling.innerHTML = element.getAttribute("data-translated-title");
+                        });
+                    });
+                </script>
+            <!--ДАЛЬШЕ ВСЕ НОРМАЛЬНО-->
             </div>
             <div class="frame2">
                 <div class="searchbar lang" key="">
@@ -91,6 +131,7 @@
                                 </center>
                             </div>
                             {% endif %}
+
                             {% endfor %}
                         </center>
                     </div>
@@ -104,11 +145,12 @@
                             </center>
                         </div>
                         {% endif %}
+
                         {% endfor %}
                     </div>
                 </div>
                 {% else %}
-                <center><p class = "zero"> no found</p></center>
+                <center><p class="zero"> no found</p></center>
                 {% endif %}
                 </p>
             </div>
