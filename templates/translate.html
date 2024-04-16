@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="/static/my_script.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>k-pop choreography search</title>
     <style>
@@ -24,13 +24,12 @@
 <body>
 
 <div class="logo">
-    <a href="/"><img src="../static/logo.png" alt="Logotype"></a>
+    <a href="/translate"><img src="../static/logo.png" alt="Logotype"></a>
 </div>
+<!--вот кнопки для перевода-->
+<a href="/"> <button id="en" class="translate_en header-item-lang-en"><img src="../static/uk.png" width="50" height="40"></button></a>
 
-<button id="en" class="translate_en header-item-lang-en"><img src="../static/uk.png" width="50" height="40"></button>
-
-<a href="/translate"><button id="ru" class="translate_rus header-item-lang-en"><img src="../static/rus.jpg" width="50" height="40"></button></a>
-
+<button id="ru" class="translate_rus header-item-lang-en"><img src="../static/rus.jpg" width="50" height="40"></button>
 
 <section>
     <form>
@@ -38,22 +37,23 @@
 
             <div class="frame">
 
-                <p class="filter">FILTERS</p>
+                <p class="filter">ФИЛЬТРЫ</p>
 
 
                 <div class="tags">
                     {% for group in filter_groups %}
-                    <h5>{{ group['title'] }}</h5>
+
+                    <h5>{{ group['translate_title'] }}</h5>
 
                     <center>
                         {% for filter in group['filters'] %}
                         {% if filter['code'] in request.args %}
 
-                        <input type="checkbox" name="{{ filter['code'] }}" checked class="name"> {{ filter['name'] }}
+                        <input type="checkbox" name="{{ filter['code'] }}" checked class="name"> {{ filter['translate'] }}
                         <br>
                         {% else %}
-                        <!--здесь я даю в цикле оригинальное название для фильтров и переведенное-->
-                        <input type="checkbox" name="{{ filter['code'] }}" class="name"> {{ filter['name'] }}
+
+                        <input type="checkbox" name="{{ filter['code'] }}" class="name"> {{ filter['translate'] }}
                         <br>
                         {% endif %}
                         {% endfor %}
@@ -65,9 +65,9 @@
             </div>
             <div class="frame2">
                 <div class="searchbar lang">
-                    <p><input type="search" name="q" class="search" placeholder="Search for the result"
+                    <p><input type="search" name="q" class="search" placeholder="введите название группы"
                               value="{{ request.args.get('q', '') }}">
-                        <input type="submit" class="submit" value="Search"></p>
+                        <input type="submit" class="submit" value="поиск"></p>
                     <p>
                 </div>
                 {% if videos %}
@@ -102,7 +102,7 @@
                     </div>
                 </div>
                 {% else %}
-                <center><p> no found</p></center>
+                <center><p> не найдено</p></center>
                 {% endif %}
                 </p>
             </div>

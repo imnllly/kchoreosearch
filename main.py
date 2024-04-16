@@ -1,26 +1,26 @@
 from flask import Flask, render_template, request
 import sqlite3
 
-# import sqlalchemy
-
 app = Flask(__name__)
 
-#здесь список с группами
 filter_groups = [
     {
-        "title": "gender", #КОД ДЛЯ ТИТЛОВ
-        "translate_title": "группы", #КОД ДЛЯ ПЕРЕВОДА ТИТЛОВ
+        "title": "gender",
+        "translate_title": "группы",
         "filters": [
             {
-                "name": "BOY GROUP", #КОД ДЛЯ НАЗВАНИЯ ФИЛЬТРОВ
-                "code": 'male' #КОД ДЛЯ ПЕРЕВОДА ФИЛЬТРОВ
+                "name": "BOY GROUP",
+                "translate": "МУЖСКАЯ ГРУППА",
+                "code": 'male'
             },
             {
                 "name": "GIRL GROUP",
+                "translate": "ЖЕНСКАЯ ГРУППА",
                 "code": 'female'
             },
             {
                 "name": "SWITCH GROUP",
+                "translate": "СОВМЕСТНАЯ ГРУППА",
                 "code": 'switch'
             }
         ]
@@ -68,7 +68,6 @@ filter_groups = [
     }
 ]
 
-
 @app.route('/')
 def index():
     search_query = request.args.get('q') or ""
@@ -85,6 +84,21 @@ def index():
 
         return render_template('tasks.html', videos=filtered_videos, filter_groups=filter_groups)
 
+@app.route('/translate')
+def translate():
+    search_query = request.args.get('q') or ""
+    with sqlite3.connect("horeo.db") as conn:
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM groups WHERE `group` like ?", ('%' + search_query + '%',))
+        videos = cur.fetchall()
+
+        filtered_videos = []
+
+        for video in videos:
+            if len(request.args) <= 1 or set(video[6].split(',')).intersection(set(request.args)):
+                filtered_videos.append(video[4])
+
+        return render_template('translate.html', videos=filtered_videos, filter_groups=filter_groups)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=80)
