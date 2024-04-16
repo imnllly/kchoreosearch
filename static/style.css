@@ -60,7 +60,7 @@ p {
 
 .search {
     width: 100%;
-    max-width: 500px;
+    max-width: 800px;
     height: 35px;
     background: #C09DED;
     color: #FBF2FD;
@@ -71,7 +71,7 @@ p {
 }
 
 .submit {
-    width: 10%;
+    width: 12%;
     height: 35px;
     background: #9DA2CE;
     border-radius: 20px;
