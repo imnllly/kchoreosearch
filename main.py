@@ -1,3 +1,5 @@
+import math
+
 from flask import Flask, render_template, request
 import sqlite3
 
@@ -82,7 +84,12 @@ def index():
             if len(request.args) <= 1 or set(video[6].split(',')).intersection(set(request.args)):
                 filtered_videos.append(video[4])
 
-        return render_template('tasks.html', videos=filtered_videos, filter_groups=filter_groups)
+        page = int(request.args.get('page', 0))
+
+        pages = math.ceil(len(filtered_videos) / 12)
+
+        filtered_videos = filtered_videos[12 * page: 12 * (page + 1)]
+        return render_template('tasks.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
 
 @app.route('/translate')
 def translate():

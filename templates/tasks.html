@@ -5,20 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="/static/my_script.js"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>k-pop choreography search</title>
     <style>
         .videos-container {
             display: flex;
         }
 
-        .column {
-            flex: 1;
-            padding: 10px;
-        }
-
         .video-card {
             margin-bottom: 20px;
         }
+
+
     </style>
 </head>
 <body>
@@ -29,83 +28,114 @@
 
 <button id="en" class="translate_en header-item-lang-en"><img src="../static/uk.png" width="50" height="40"></button>
 
-<a href="/translate"><button id="ru" class="translate_rus header-item-lang-en"><img src="../static/rus.jpg" width="50" height="40"></button></a>
+<a href="/translate">
+    <button id="ru" class="translate_rus header-item-lang-en"><img src="../static/rus.jpg" width="50" height="40">
+    </button>
+</a>
 
 
 <section>
     <form>
-        <div class="container">
+        <div class="container-fluid">
 
-            <div class="frame">
+            <div class="row">
+                <div class="col-12 col-md-6 col-lg-3">
+                    <div class="frame">
 
-                <p class="filter">FILTERS</p>
+                        <p class="filter">FILTERS</p>
 
 
-                <div class="tags">
-                    {% for group in filter_groups %}
-                    <h5>{{ group['title'] }}</h5>
+                        <div class="tags">
+                            {% for group in filter_groups %}
+                            <h5>{{ group['title'] }}</h5>
 
-                    <center>
-                        {% for filter in group['filters'] %}
-                        {% if filter['code'] in request.args %}
+                            <center>
+                                {% for filter in group['filters'] %}
+                                {% if filter['code'] in request.args %}
 
-                        <input type="checkbox" name="{{ filter['code'] }}" checked class="name"> {{ filter['name'] }}
-                        <br>
-                        {% else %}
-                        <!--здесь я даю в цикле оригинальное название для фильтров и переведенное-->
-                        <input type="checkbox" name="{{ filter['code'] }}" class="name"> {{ filter['name'] }}
-                        <br>
-                        {% endif %}
-                        {% endfor %}
-                    </center>
-                    {% endfor %}
-                    <input type="submit" class="submit" value="Search">
+                                <input type="checkbox" name="{{ filter['code'] }}" checked class="name"> {{
+                                filter['name']
+                                }}
+                                <br>
+                                {% else %}
+                                <!--здесь я даю в цикле оригинальное название для фильтров и переведенное-->
+                                <input type="checkbox" name="{{ filter['code'] }}" class="name"> {{ filter['name'] }}
+                                <br>
+                                {% endif %}
+                                {% endfor %}
+                            </center>
+                            {% endfor %}
+                            <input type="submit" class="submit" value="Search">
+                        </div>
+                    </div>
+
                 </div>
+                <div class="col-12 col-md-6 col-lg-9">
+                    <div class="frame">
+                        <div class="searchbar lang">
+                            <input type="search" name="q" class="search" placeholder="Search for the result"
+                                   value="{{ request.args.get('q', '') }}">
 
-            </div>
-            <div class="frame2">
-                <div class="searchbar lang">
-                    <p><input type="search" name="q" class="search" placeholder="Search for the result"
-                              value="{{ request.args.get('q', '') }}">
-                        <input type="submit" class="submit" value="Search"></p>
-                    <p>
-                </div>
-                {% if videos %}
-                <div class="videos-container">
+                            <input type="submit" class="submit" value="Search">
 
-                    <div class="column">
-                        <center>
+                        </div>
+                        {% if videos %}
+                        <div class="row" style="margin-left: 2.5%; margin-right: 2.5%;">
                             {% for video in videos %}
-                            {% if loop.index is even %}
-                            <div class="video-card">
-                                <center>
-                                    <iframe width="320" height="240" src="{{ video }}"></iframe>
-                                </center>
+                            <div class="col-12 col-md-6">
+                                <div class="video-container">
+
+                                    <iframe style="width: 100%;" src="{{ video }}"></iframe>
+                                </div>
                             </div>
-                            {% endif %}
 
                             {% endfor %}
-                        </center>
-                    </div>
-                    <div class="column">
 
-                        {% for video in videos %}
-                        {% if loop.index is odd %}
-                        <div class="video-card">
-                            <center>
-                                <iframe width="320" height="240" src="{{ video }}"></iframe>
-                            </center>
+                        </div>
+
+                        {% if page > 0 %}
+                        <div>
+                            <form method="get">
+                                <input type="hidden" name="page" value="{{ page - 1 }}">
+                                {% for group in filter_groups %}
+                                {% for filter in group['filters'] %}
+                                {% if filter['code'] in request.args %}
+                                <input type="hidden" name="{{ filter['code'] }}"
+                                       value="{{ request.args[filter.code] }}">
+                                {% endif%}
+
+                                {% endfor %}
+                                {% endfor %}
+                                <input type="submit" value="На зад"/>
+                            </form>
                         </div>
                         {% endif %}
+                        {% if page < pages - 1 %}
+                        <div>
+                            <form method="get">
+                                <input type="hidden" name="page" value="{{ page + 1 }}">
+                                {% for group in filter_groups %}
+                                {% for filter in group['filters'] %}
+                                {% if filter['code'] in request.args %}
+                                <input type="hidden" name="{{ filter['code'] }}"
+                                       value="{{ request.args[filter.code] }}">
+                                {% endif%}
 
-                        {% endfor %}
+                                {% endfor %}
+                                {% endfor %}
+                                <input type="submit" value="Впрд"/>
+                            </form>
+                        </div>
+                        {% endif %}
                     </div>
+                    {% else %}
+                    <center><p> no found</p></center>
+                    {% endif %}
+                    </p>
                 </div>
-                {% else %}
-                <center><p> no found</p></center>
-                {% endif %}
-                </p>
             </div>
+        </div>
+
 
         </div>
     </form>
