@@ -65,7 +65,7 @@
                                 {% endfor %}
                             </center>
                             {% endfor %}
-                            <input type="submit" class="submit" value="Search">
+                            <input type="submit" class="submit_search" value="Search">
                         </div>
                     </div>
 
@@ -76,7 +76,7 @@
                             <input type="search" name="q" class="search" placeholder="Search for the result"
                                    value="{{ request.args.get('q', '') }}">
 
-                            <input type="submit" class="submit" value="Search">
+                            <input type="submit" class="submit_search" value="Search">
 
                         </div>
                         {% if videos %}
@@ -106,7 +106,7 @@
 
                                 {% endfor %}
                                 {% endfor %}
-                                <input type="submit" class="submit" value="Back"/>
+                                <input type="submit" class="submit_page" value="Back"/>
                             </form>
                         </div>
                         {% endif %}
@@ -123,7 +123,7 @@
 
                                 {% endfor %}
                                 {% endfor %}
-                                <input type="submit" class="submit" value="Next"/>
+                                <input type="submit" class="submit_page" value="Next"/>
                             </form>
                         </div>
                         {% endif %}

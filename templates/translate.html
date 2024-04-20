@@ -59,7 +59,7 @@
                         {% endfor %}
                     </center>
                     {% endfor %}
-                    <input type="submit" class="submit" value="Search">
+                    <input type="submit" class="submit_search" value="Search">
                 </div>
 
             </div>
@@ -67,7 +67,7 @@
                 <div class="searchbar lang">
                     <p><input type="search" name="q" class="search" placeholder="введите название группы"
                               value="{{ request.args.get('q', '') }}">
-                        <input type="submit" class="submit" value="поиск"></p>
+                        <input type="submit" class="submit_search" value="поиск"></p>
                     <p>
                 </div>
                 {% if videos %}

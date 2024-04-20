@@ -64,17 +64,28 @@ p {
     min-width: 100px;
 }
 
-.submit {
+.submit_search {
     height: 35px;
     min-width: 100px;
     background: #9DA2CE;
     border-radius: 20px;
     color: #FBF2FD;
     border: none;
-    height: 35px;
     margin-top: 10px;
     width: 30%;
 
+}
+
+.submit_page {
+    height: 35px;
+    min-width: 50px;
+    background: #f7dcf9;
+    border-radius: 20px;
+    color: #C09DED;
+    border: none;
+    width: 10%;
+    margin-left: 50px;
+    margin-top: 10px;
 }
 
 .tags {
