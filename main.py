@@ -1,4 +1,5 @@
 import math
+from copy import copy
 
 from flask import Flask, render_template, request
 import sqlite3
@@ -72,19 +73,24 @@ filter_groups = [
 
 @app.route('/')
 def index():
-    search_query = request.args.get('q') or ""
+    search_query = request.args.get('q', "")
     with sqlite3.connect("horeo.db") as conn:
         cur = conn.cursor()
+        print(search_query)
         cur.execute("SELECT * FROM groups WHERE `group` like ?", ('%' + search_query + '%',))
         videos = cur.fetchall()
 
         filtered_videos = []
+        page = int(request.args.get('page', 0))
+
+        filter_values = dict(request.args)
+        if 'page' in filter_values:
+            del filter_values['page']
+
 
         for video in videos:
-            if len(request.args) <= 1 or set(video[6].split(',')).intersection(set(request.args)):
+            if len(filter_values) <= 1 or set(video[6].split(',')).intersection(set(filter_values)):
                 filtered_videos.append(video[4])
-
-        page = int(request.args.get('page', 0))
 
         pages = math.ceil(len(filtered_videos) / 12)
 
