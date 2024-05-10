@@ -39,7 +39,7 @@ filter_groups = [
             },
             {
                 "name": "2 MEMBERS",
-                "translate": "2 УЧАСТНИКа",
+                "translate": "2 УЧАСТНИКА",
                 "code": 'members_2'
             },
             {
