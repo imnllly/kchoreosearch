@@ -1,11 +1,11 @@
 import math
-from copy import copy
-
 from flask import Flask, render_template, request
 import sqlite3
 from config import *
 
+
 app = Flask(__name__)
+
 
 @app.route('/')
 def index():
@@ -16,7 +16,6 @@ def index():
 
         cur = conn.cursor()
         print(search_query)
-        cur.execute("SELECT * FROM groups WHERE `group` like ?", ('%' + search_query + '%',))
         videos = cur.fetchall()
 
         filtered_videos = []
@@ -78,6 +77,8 @@ def translate():
         return render_template('translate.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
 
 
+
+#b.query("INSERT INTO songs (name) VALUES ('{}');".format("ZZZ"))
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80)
