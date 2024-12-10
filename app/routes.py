@@ -1,21 +1,22 @@
 import math
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, Blueprint
 import sqlite3
 from config import *
 
 
-app = Flask(__name__)
+main = Blueprint('main', __name__)
 
 
-@app.route('/')
+@main.route('/')
 def index():
 
     search_query = request.args.get('q', "")
     
-    with sqlite3.connect("horeo.db") as conn:
+    with sqlite3.connect("app/horeo.db") as conn:
 
         cur = conn.cursor()
         print(search_query)
+        cur.execute("SELECT * FROM groups WHERE `group` like ?", ('%' + search_query + '%',))
         videos = cur.fetchall()
 
         filtered_videos = []
@@ -42,12 +43,12 @@ def index():
 
 
 
-@app.route('/translate')
+@main.route('/translate')
 def translate():
 
     search_query = request.args.get('q', "")
 
-    with sqlite3.connect("horeo.db") as conn:
+    with sqlite3.connect("app/horeo.db") as conn:
 
         cur = conn.cursor()
         print(search_query)
@@ -76,9 +77,4 @@ def translate():
         filtered_videos = filtered_videos[12 * page: 12 * (page + 1)]
         return render_template('translate.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
 
-
-
 #b.query("INSERT INTO songs (name) VALUES ('{}');".format("ZZZ"))
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=80)

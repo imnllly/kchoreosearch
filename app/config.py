@@ -1,6 +1,6 @@
+SECRET_KEY = "your_secret_key"
 DATABASE_LOGIN = "postgres"
 DATABASE_PASSWORD = "147896313"
-
 filter_groups = [
     {
         "title": "gender",
