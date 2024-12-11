@@ -1,4 +1,4 @@
-body {
+.body_main {
     background-image: url(../static/background3.jpg);
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -121,4 +121,60 @@ p {
     width: 100%;
     align-items: center;
     text-align: center;
+}
+
+.body_login {
+    background-color: #e6dff9;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.container_login {
+    text-align: center;
+    margin-top: 30%;
+}
+
+.login {
+    text-transform: uppercase;
+    font-size: 450%;
+    color: #452192;
+    font-family: "Quicksand", sans-serif;
+}
+
+.link {
+    text-decoration: none;
+    font-size: 125%;
+    margin-left: 93%;
+    color: #452192;
+    text-transform: uppercase;
+    font-family: "Quicksand", sans-serif;
+}
+
+
+.input_login {
+    text-transform: uppercase;
+    margin-top: 3%;
+    text-align: center;
+    background: #7a53ce;
+    border-radius: 20px;
+    color: #e4dcf9;
+    border: none;
+    font-size: 170%;
+    width: 50%;
+    font-family: "Quicksand", sans-serif;
+}
+
+
+.button_login {
+    text-transform: uppercase;
+    margin-top: 2%;
+    background: #9f83db;
+    border-radius: 20px;
+    color: #e4dcf9;
+    border: none;
+    text-align: center;
+    font-size: 120%;
+    width: 10%;
+    font-family: "Quicksand", sans-serif;
 }
