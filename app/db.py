@@ -20,8 +20,7 @@ class db:
         self.connection.commit()
 
     def create(self):
-            cursor = self.connection.cursor()
-            cursor.execute("""
+            self.query("""
                 CREATE TABLE IF NOT EXISTS groups (
                     id SERIAL PRIMARY KEY,
                     group_name TEXT,
@@ -32,4 +31,3 @@ class db:
                     tags TEXT
                 )
             """)
-            self.connection.commit()
