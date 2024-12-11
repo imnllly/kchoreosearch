@@ -1,19 +1,16 @@
 import math
 from flask import render_template, request, Blueprint
-import sqlite3
 from config import *
 from db import db
 
-
 main = Blueprint('main', __name__)
-
+connect = db("postgres")
 
 @main.route('/')
 def index():
 
     search_query = request.args.get('q', "")
         
-    connect = db("postgres")
     videos = connect.select("SELECT * FROM groups WHERE group_name LIKE '%"+search_query+"%';")
 
     filtered_videos = []
