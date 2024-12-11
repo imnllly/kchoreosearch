@@ -3,7 +3,7 @@ from routes import main
 
 
 app = Flask(__name__)
-
+app.secret_key = 'ochko_xd'
 app.register_blueprint(main)
 
 
