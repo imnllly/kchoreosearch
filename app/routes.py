@@ -74,7 +74,7 @@ def login_check():
 
     if(code==SECRET_CODE):
 
-        return render_template('admin_page.html')
+        return render_template('admin_remove.html')
     
 
     return redirect('/')
@@ -94,6 +94,20 @@ def add():
         connect.query("INSERT INTO groups (group_name, members_num, gender, url) VALUES ('{0}', {1}, '{2}', '{3}');".format(group_name, members_num, gender, url))
     
     
+    return redirect('/')
+
+#---------------------------------------------------------------------------------------------------------------- Remove ----------------------------------------------------------------------------------------------------------------
+
+@main.route('/remove', methods=['POST', 'GET'])
+def remove():
+
+    field_type = request.form['type']
+    value = request.form['value']
+
+    if(field_type!="" and value):
+
+        connect.query("DELETE FROM groups where {0} = '{1}';".format(field_type, value))
+
     return redirect('/')
 
 #---------------------------------------------------------------------------------------------------------------- Translate ----------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin</title>
+  </head>
+  <body>
+    <form method="POST" action="/remove">
+      <select name="type" id="type">
+        <option value="">type</option>
+        <option value="id">id</option>
+        <option value="group_name">group_name</option>
+        <option value="members_num">members_num</option>
+        <option value="gender">gender</option>
+        <option value="url">url</option>
+      </select>
+      <input name="value" placeholder="value"/>
+      <input type="submit" value="Удалить из базы данных"/>
+  </form>
+  </body>
+</html>
