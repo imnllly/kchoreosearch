@@ -31,37 +31,37 @@ filter_groups = [
             {
                 "name": "1 MEMBER",
                 "translate": "1 УЧАСТНИК",
-                "code": 'members_1'
+                "code": 1
             },
             {
                 "name": "2 MEMBERS",
                 "translate": "2 УЧАСТНИКА",
-                "code": 'members_2'
+                "code": 2
             },
             {
                 "name": "3 MEMBERS",
                 "translate": "3 УЧАСТНИКА",
-                "code": 'members_3'
+                "code": 3
             },
             {
                 "name": "4 MEMBERS",
                 "translate": "4 УЧАСТНИКА",
-                "code": 'members_4'
+                "code": 4
             },
             {
                 "name": "5 MEMBERS",
                 "translate": "5 УЧАСТНИКОВ",
-                "code": 'members_5'
+                "code": 5
             },
             {
                 "name": "6 MEMBERS",
                 "translate": "6 УЧАСТНИКОВ",
-                "code": 'members_6'
+                "code": 6
             },
             {
                 "name": "7 MEMBERS",
                 "translate": "7 УЧАСТНИКОВ",
-                "code": 'members_7'
+                "code": 7
             },
         ]
     }

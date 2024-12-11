@@ -8,7 +8,7 @@ connect = db("postgres")
 
 #---------------------------------------------------------------------------------------------------------------- Main Page ----------------------------------------------------------------------------------------------------------------
 
-@main.route('/')
+@main.route('/', methods=['POST', 'GET'])
 def index():
 
     if 'language' in session:
@@ -20,10 +20,16 @@ def index():
 
         language = "ru"
 
-    
-    search_query = request.args.get('search', "")
-        
-    videos = connect.select("SELECT * FROM groups WHERE group_name LIKE '%"+search_query+"%';")
+    search = request.args.get('search', "")
+    gender = request.args.get('gender', "")
+    number = request.args.get('number', "")
+
+    select_query = "SELECT * FROM groups WHERE group_name LIKE '%"+search+"%'{0}{1};"
+
+    if(gender!=""):gender=" and gender = '"+gender+"'"
+    if(number!=""):number=" and members_num = '"+number+"'"
+
+    videos = connect.select(select_query.format(gender, number))
 
     filtered_videos = []
     page = int(request.args.get('page', 0))
@@ -36,9 +42,7 @@ def index():
 
     for video in videos:
 
-        if len(filter_values) <= 1 or set([video[2], video[3]]).intersection(set(filter_values)):
-
-            filtered_videos.append(video[4])
+        filtered_videos.append(video[4])
 
 
     pages = math.ceil(len(filtered_videos) / 12)

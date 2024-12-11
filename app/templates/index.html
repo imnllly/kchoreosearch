@@ -48,25 +48,20 @@
 
 
                         <div class="tags">
-                            {% for group in filter_groups %}
-                            <h5>{{ group['translate_title'] }}</h5>
+                            <form method="POST"></form>
+                                {% for group in filter_groups %}
+                                <h5>{{ group['translate_title'] }}</h5>
 
-                            <center>
-                                {% for filter in group['filters'] %}
-                                {% if filter['code'] in request.args %}
-
-                                <input type="checkbox" name="{{ filter['code'] }}" checked class="name"> {{
-                                filter['translate']
-                                }}
-                                <br>
-                                {% else %}
-
-                                <input type="checkbox" name="{{ filter['code'] }}" class="name"> {{ filter['translate'] }}
-                                <br>
-                                {% endif %}
+                                <center>
+                                        <select name="{{ group['title'] }}" id="{{ group['title'] }}">
+                                            <option value="">Выберите вариант</option>
+                                            {% for filter in group['filters'] %}
+                                                <option value="{{ filter['code'] }}">{{filter['translate']}}</option>
+                                            {% endfor %}
+                                        </select>
+                                </center>
                                 {% endfor %}
-                            </center>
-                            {% endfor %}
+                            </form>
                             <input type="submit" class="submit_search" value="Поиск">
                         </div>
                     </div>
@@ -76,7 +71,7 @@
                     <div class="frame">
                         <div class="searchbar lang">
                             <input type="search" name="search" class="search" placeholder="Поиск результата"
-                                   value="{{ request.args.get('q', '') }}">
+                                   value="{{ request.args.get('search', '') }}">
 
                             <input type="submit" class="submit_search" value="Поиск">
 

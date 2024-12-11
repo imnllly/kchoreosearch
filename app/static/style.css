@@ -124,7 +124,7 @@ p {
 }
 
 .body_login {
-    background-color: #e6dff9;
+    background-image: url(../static/background4.png);
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
@@ -133,6 +133,7 @@ p {
 .container_login {
     text-align: center;
     margin-top: 15%;
+
 }
 
 .login {
@@ -158,11 +159,13 @@ p {
     text-align: center;
     background: #7a53ce;
     border-radius: 20px;
-    color: #e4dcf9;
     border: none;
-    font-size: 170%;
+    font-size: 150%;
     width: 50%;
     font-family: "Quicksand", sans-serif;
+    display: block;
+    margin-bottom: 10px;
+    width: 30%;
 }
 
 
@@ -177,4 +180,9 @@ p {
     font-size: 120%;
     width: 10%;
     font-family: "Quicksand", sans-serif;
+    display: block;
+}
+
+input::placeholder {
+    color: #e4dcf9;
 }
