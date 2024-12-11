@@ -25,7 +25,7 @@ for video in videos:
     if(video[0]): dict["group_name"] = video[0]
     if(video[1]): dict["members_num"] = video[1]
     if(video[2]): dict["gender"] = video[2]
-    if(video[3]): dict["video"] = video[3]
+    if(video[3]): dict["url"] = video[3]
     if(video[4]): dict["preview"] = video[4]
     
 

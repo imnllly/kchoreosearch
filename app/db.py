@@ -34,7 +34,7 @@ class db:
                 group_name TEXT,
                 members_num TEXT,
                 gender TEXT,
-                video TEXT,
+                url TEXT,
                 preview TEXT
             )
         """)
@@ -46,7 +46,7 @@ class db:
                 group_name TEXT,
                 members_num TEXT,
                 gender TEXT,
-                video TEXT,
+                url TEXT,
                 preview TEXT
             )
         """)

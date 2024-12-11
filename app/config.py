@@ -1,4 +1,5 @@
 SECRET_KEY = "your_secret_key"
+SECRET_CODE = "2577c72d87c6b9e56ad75e8718431934"
 DATABASE_LOGIN = "postgres"
 DATABASE_PASSWORD = "147896313"
 filter_groups = [
@@ -34,7 +35,7 @@ filter_groups = [
             },
             {
                 "name": "2 MEMBERS",
-                "translate": "2 УЧАСТНИКа",
+                "translate": "2 УЧАСТНИКА",
                 "code": 'members_2'
             },
             {
