@@ -1,9 +1,9 @@
 from flask import Flask
 from routes import main
-
+from config import SECRET_KEY
 
 app = Flask(__name__)
-app.secret_key = 'ochko_xd'
+app.secret_key = SECRET_KEY
 app.register_blueprint(main)
 
 

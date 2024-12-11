@@ -6,6 +6,8 @@ from db import db
 main = Blueprint('main', __name__)
 connect = db("postgres")
 
+#---------------------------------------------------------------------------------------------------------------- Main Page ----------------------------------------------------------------------------------------------------------------
+
 @main.route('/')
 def index():
     if 'language' in session:
@@ -46,27 +48,44 @@ def index():
     else:
         print("анлак")
 
+#---------------------------------------------------------------------------------------------------------------- Login ----------------------------------------------------------------------------------------------------------------
 
 @main.route('/login')
 def login():
     return render_template('log.html')
 
+#---------------------------------------------------------------------------------------------------------------- Login Check ----------------------------------------------------------------------------------------------------------------
+
 @main.route('/login_check', methods=['POST', 'GET'])
 def login_check():
+
     code = request.form['code']
+
     if(code==SECRET_CODE):
+
         return render_template('admin_page.html')
+    
+
+    return redirect('/')
+
+#---------------------------------------------------------------------------------------------------------------- Add ----------------------------------------------------------------------------------------------------------------
 
 @main.route('/add', methods=['POST', 'GET'])
 def add():
+
     group_name = request.form['group_name']
     members_num = request.form['members_num']
     gender = request.form['gender']
     url = request.form['url']
-    print("INSERT INTO groups (group_name, member_num, gender, url) VALUES ('{0}', {1}, '{2}', '{3}');".format(group_name, members_num, gender, url))
-    connect.query("INSERT INTO groups (group_name, members_num, gender, url) VALUES ('{0}', {1}, '{2}', '{3}');".format(group_name, members_num, gender, url))
+
+    if(members_num.isdigit() and gender!=""):
+        
+        connect.query("INSERT INTO groups (group_name, members_num, gender, url) VALUES ('{0}', {1}, '{2}', '{3}');".format(group_name, members_num, gender, url))
+    
+    
     return redirect('/')
 
+#---------------------------------------------------------------------------------------------------------------- Translate ----------------------------------------------------------------------------------------------------------------
 
 @main.route('/translate')
 def translate_en():
@@ -74,7 +93,9 @@ def translate_en():
     session["language"] = "en"
     return redirect("/")
 
+
 @main.route('/rus')
 def translate_rus():
-
+    
     session["language"] = "ru"
+    return redirect("/")
