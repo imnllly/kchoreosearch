@@ -42,29 +42,24 @@
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="frame">
 
-                        <p class="filter">FILTERS</p>
+                        <p class="filter">Filters</p>
 
 
                         <div class="tags">
-                            {% for group in filter_groups %}
-                            <h5>{{ group['title'] }}</h5>
+                            <form method="POST"></form>
+                                {% for group in filter_groups %}
+                                <h5>{{ group['title'] }}</h5>
 
-                            <center>
-                                {% for filter in group['filters'] %}
-                                {% if filter['code'] in request.args %}
-
-                                <input type="checkbox" name="{{ filter['code'] }}" checked class="name"> {{
-                                filter['name']
-                                }}
-                                <br>
-                                {% else %}
-                                <!--здесь я даю в цикле оригинальное название для фильтров и переведенное-->
-                                <input type="checkbox" name="{{ filter['code'] }}" class="name"> {{ filter['name'] }}
-                                <br>
-                                {% endif %}
+                                <center>
+                                        <select name="{{ group['title'] }}" id="{{ group['title'] }}">
+                                            <option value="">Choise variant</option>
+                                            {% for filter in group['filters'] %}
+                                                <option value="{{ filter['code'] }}">{{filter['name']}}</option>
+                                            {% endfor %}
+                                        </select>
+                                </center>
                                 {% endfor %}
-                            </center>
-                            {% endfor %}
+                            </form>
                             <input type="submit" class="submit_search" value="Search">
                         </div>
                     </div>
@@ -73,8 +68,8 @@
                 <div class="col-12 col-md-6 col-lg-9">
                     <div class="frame">
                         <div class="searchbar lang">
-                            <input type="search" name="q" class="search" placeholder="Search for the result"
-                                   value="{{ request.args.get('q', '') }}">
+                            <input type="search" name="search" class="search" placeholder="Search for the result"
+                                   value="{{ request.args.get('search', '') }}">
 
                             <input type="submit" class="submit_search" value="Search">
 
@@ -129,7 +124,7 @@
                         {% endif %}
                     </div>
                     {% else %}
-                    <center><p> no found</p></center>
+                    <center><p>Not founded</p></center>
                     {% endif %}
                     </p>
                 </div>
