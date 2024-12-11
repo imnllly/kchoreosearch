@@ -45,8 +45,6 @@ def index():
         return render_template('index.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
     elif language == "en":
         return render_template('translate.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
-    else:
-        print("анлак")
 
 #---------------------------------------------------------------------------------------------------------------- Login ----------------------------------------------------------------------------------------------------------------
 
@@ -96,6 +94,6 @@ def translate_en():
 
 @main.route('/rus')
 def translate_rus():
-    
+
     session["language"] = "ru"
     return redirect("/")
