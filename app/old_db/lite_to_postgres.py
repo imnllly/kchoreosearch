@@ -1,8 +1,13 @@
 import sqlite3
+import sys
+sys.path.insert(0, "app/")
+
 from config import *
 from db import *
 
-sqlite_conn = sqlite3.connect("app/horeo.db")
+
+
+sqlite_conn = sqlite3.connect("app/old_db/horeo.db")
 sqlite_cur = sqlite_conn.cursor()
 
 db_instance = db("postgres")

@@ -20,6 +20,11 @@ class db:
         cursor.execute(query)
         self.connection.commit()
 
+    def select(self, query):
+        cursor = self.connection.cursor()
+        cursor.execute(query)
+        return cursor.fetchall()
+
     def drop_create(self, table_name):
         self.query("DROP TABLE "+table_name+";")
         self.query("CREATE TABLE IF NOT EXISTS "+table_name+""" (
@@ -33,9 +38,9 @@ class db:
             )
         """)
 
+
     def create(self, table_name):
-        self.query("""
-            CREATE TABLE IF NOT EXISTS groups (
+        self.query("CREATE TABLE IF NOT EXISTS "+table_name+""" (
                 id SERIAL PRIMARY KEY,
                 group_name TEXT,
                 members_num TEXT,

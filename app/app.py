@@ -1,5 +1,4 @@
 from flask import Flask
-import socket
 from routes import main
 
 

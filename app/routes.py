@@ -1,7 +1,8 @@
 import math
-from flask import Flask, render_template, request, Blueprint
+from flask import render_template, request, Blueprint
 import sqlite3
 from config import *
+from db import db
 
 
 main = Blueprint('main', __name__)
@@ -11,35 +12,32 @@ main = Blueprint('main', __name__)
 def index():
 
     search_query = request.args.get('q', "")
-    
-    with sqlite3.connect("horeo.db") as conn:
+        
+    connect = db("postgres")
+    videos = connect.select("SELECT * FROM groups WHERE group_name LIKE '%"+search_query+"%';")
 
-        cur = conn.cursor()
-        print(search_query)
-        cur.execute("SELECT * FROM groups WHERE `group` like ?", ('%' + search_query + '%',))
-        videos = cur.fetchall()
-
-        filtered_videos = []
-        page = int(request.args.get('page', 0))
-
-        filter_values = dict(request.args)
-
-        if 'page' in filter_values:
-
-            del filter_values['page']
+    filtered_videos = []
+    page = int(request.args.get('page', 0))
+    filter_values = dict(request.args)
 
 
-        for video in videos:
+    if 'page' in filter_values:
 
-            if len(filter_values) <= 1 or set(video[6].split(',')).intersection(set(filter_values)):
-                filtered_videos.append(video[4])
+        del filter_values['page']
 
 
-        pages = math.ceil(len(filtered_videos) / 12)
+    for video in videos:
 
-        filtered_videos = filtered_videos[12 * page: 12 * (page + 1)]
+        if len(filter_values) <= 1 or set(video[6].split(',')).intersection(set(filter_values)):
 
-        return render_template('tasks.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
+            filtered_videos.append(video[4])
+
+
+    pages = math.ceil(len(filtered_videos) / 12)
+
+    filtered_videos = filtered_videos[12 * page: 12 * (page + 1)]
+
+    return render_template('tasks.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
 
 
 
@@ -47,34 +45,29 @@ def index():
 def translate():
 
     search_query = request.args.get('q', "")
+        
+    connect = db("postgres")
+    videos = connect.select("SELECT * FROM groups WHERE group_name LIKE '%"+search_query+"%';")
 
-    with sqlite3.connect("horeo.db") as conn:
-
-        cur = conn.cursor()
-        print(search_query)
-        cur.execute("SELECT * FROM groups WHERE `group` like ?", ('%' + search_query + '%',))
-        videos = cur.fetchall()
-
-        filtered_videos = []
-        page = int(request.args.get('page', 0))
-
-        filter_values = dict(request.args)
-
-        if 'page' in filter_values:
-
-            del filter_values['page']
+    filtered_videos = []
+    page = int(request.args.get('page', 0))
+    filter_values = dict(request.args)
 
 
-        for video in videos:
+    if 'page' in filter_values:
 
-            if len(filter_values) <= 1 or set(video[6].split(',')).intersection(set(filter_values)):
-
-                filtered_videos.append(video[4])
+        del filter_values['page']
 
 
-        pages = math.ceil(len(filtered_videos) / 12)
+    for video in videos:
 
-        filtered_videos = filtered_videos[12 * page: 12 * (page + 1)]
-        return render_template('translate.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
+        if len(filter_values) <= 1 or set(video[6].split(',')).intersection(set(filter_values)):
 
-#b.query("INSERT INTO songs (name) VALUES ('{}');".format("ZZZ"))
+            filtered_videos.append(video[4])
+
+
+    pages = math.ceil(len(filtered_videos) / 12)
+
+    filtered_videos = filtered_videos[12 * page: 12 * (page + 1)]
+
+    return render_template('translate.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
