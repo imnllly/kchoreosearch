@@ -11,9 +11,12 @@ db_instance.drop_create("groups")
 sqlite_cur.execute("SELECT group_name, members, gender, video, prewew, tags FROM groups")
 videos = sqlite_cur.fetchall()
 
+insert_query = "INSERT INTO groups ({0}) VALUES ({1});"
+
 for video in videos:
-    insert_query = "INSERT INTO groups ({0}) VALUES ({1});"
+
     dict = {}
+
     if(video[0]): dict["group_name"] = video[0]
     if(video[1]): dict["members_num"] = video[1]
     if(video[2]): dict["gender"] = video[2]
@@ -31,5 +34,7 @@ for video in videos:
     v = str([dict.get(i) for i in dict])[1:-1]
 
     db_instance.query(insert_query.format(g, v))
+
+
 
 sqlite_conn.close()
