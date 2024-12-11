@@ -26,11 +26,10 @@
     <a href="/"><img src="../static/logo.png" alt="Logotype"></a>
 </div>
 
-<button id="en" class="translate_en header-item-lang-en"><img src="../static/uk.png" width="50" height="40"></button>
+<button id="ru" class="translate_rus header-item-lang-en"><img src="../static/rus.jpg" width="50" height="40"></button>
 
-<a href="/translate">
-    <button id="ru" class="translate_rus header-item-lang-en"><img src="../static/rus.jpg" width="50" height="40">
-    </button>
+<a href="/language"></a>
+    <button id="en" class="translate_en header-item-lang-en"><img src="../static/uk.png" width="50" height="40"></button>
 </a>
 
 
@@ -42,30 +41,30 @@
                 <div class="col-12 col-md-6 col-lg-3">
                     <div class="frame">
 
-                        <p class="filter">FILTERS</p>
+                        <p class="filter">Фильтры</p>
 
 
                         <div class="tags">
                             {% for group in filter_groups %}
-                            <h5>{{ group['title'] }}</h5>
+                            <h5>{{ group['translate_title'] }}</h5>
 
                             <center>
                                 {% for filter in group['filters'] %}
                                 {% if filter['code'] in request.args %}
 
                                 <input type="checkbox" name="{{ filter['code'] }}" checked class="name"> {{
-                                filter['name']
+                                filter['translate']
                                 }}
                                 <br>
                                 {% else %}
-                                <!--здесь я даю в цикле оригинальное название для фильтров и переведенное-->
-                                <input type="checkbox" name="{{ filter['code'] }}" class="name"> {{ filter['name'] }}
+
+                                <input type="checkbox" name="{{ filter['code'] }}" class="name"> {{ filter['translate'] }}
                                 <br>
                                 {% endif %}
                                 {% endfor %}
                             </center>
                             {% endfor %}
-                            <input type="submit" class="submit_search" value="Search">
+                            <input type="submit" class="submit_search" value="Посик">
                         </div>
                     </div>
 
@@ -73,10 +72,10 @@
                 <div class="col-12 col-md-6 col-lg-9">
                     <div class="frame">
                         <div class="searchbar lang">
-                            <input type="search" name="q" class="search" placeholder="Search for the result"
+                            <input type="search" name="q" class="search" placeholder="Поиск результата"
                                    value="{{ request.args.get('q', '') }}">
 
-                            <input type="submit" class="submit_search" value="Search">
+                            <input type="submit" class="submit_search" value="Поиск">
 
                         </div>
                         {% if videos %}
@@ -106,7 +105,7 @@
 
                                 {% endfor %}
                                 {% endfor %}
-                                <input type="submit" class="submit_page" value="Back"/>
+                                <input type="submit" class="submit_page" value="Назад"/>
                             </form>
                         </div>
                         {% endif %}
@@ -123,13 +122,13 @@
 
                                 {% endfor %}
                                 {% endfor %}
-                                <input type="submit" class="submit_page" value="Next"/>
+                                <input type="submit" class="submit_page" value="Дальше"/>
                             </form>
                         </div>
                         {% endif %}
                     </div>
                     {% else %}
-                    <center><p> no found</p></center>
+                    <center><p> не найдено</p></center>
                     {% endif %}
                     </p>
                 </div>
