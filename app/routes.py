@@ -10,18 +10,26 @@ connect = db("postgres")
 
 @main.route('/')
 def index():
+
     if 'language' in session:
+
         language = session['language']
+
+
     else:
+
         language = "ru"
+
     
-    search_query = request.args.get('q', "")
+    search_query = request.args.get('search', "")
         
     videos = connect.select("SELECT * FROM groups WHERE group_name LIKE '%"+search_query+"%';")
 
     filtered_videos = []
     page = int(request.args.get('page', 0))
     filter_values = dict(request.args)
+
+    print(request.args)
 
 
     if 'page' in filter_values:
@@ -31,7 +39,9 @@ def index():
 
     for video in videos:
 
-        if len(filter_values) <= 1 or set(video[6].split(',')).intersection(set(filter_values)):
+        print(video)
+        #if (len(filter_values) <= 1 or filter_values ):
+        if len(filter_values) <= 1 or set([video[2], video[3]]).intersection(set(filter_values)):
 
             filtered_videos.append(video[4])
 
