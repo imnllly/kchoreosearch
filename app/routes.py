@@ -78,3 +78,4 @@ def translate_en():
 def translate_rus():
 
     session["language"] = "ru"
+    return redirect("/")

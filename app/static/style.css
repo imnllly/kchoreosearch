@@ -10,7 +10,8 @@ body {
     justify-content: center;
 }
 .translate_en,
-.translate_rus {
+.translate_rus,
+.log {
     background: transparent;
     border: none;
     cursor: pointer;
@@ -26,6 +27,9 @@ body {
 
 .translate_rus {
     right: 90px;
+}
+.log{
+    right: 150px;
 }
 
 .frame {
