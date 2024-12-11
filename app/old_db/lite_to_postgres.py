@@ -17,7 +17,7 @@ sqlite_cur.execute("SELECT group_name, members, gender, video, prewew FROM group
 videos = sqlite_cur.fetchall()
 
 insert_query = "INSERT INTO groups ({0}) VALUES ({1});"
-
+"https://www.youtube.com/embed/MHqOB-S7oGE?si=wMCekBrUd6w8nyWD"
 for video in videos:
 
     dict = {}
@@ -25,8 +25,9 @@ for video in videos:
     if(video[0]): dict["group_name"] = video[0]
     if(video[1]): dict["members_num"] = video[1]
     if(video[2]): dict["gender"] = video[2]
-    if(video[3]): dict["url"] = video[3]
-    if(video[4]): dict["preview"] = video[4]
+    if(video[3]): 
+        dict["url"] = video[3]
+        dict["preview"] = "https://i.ytimg.com/vi/"+video[3][str(video[3]).find("embed/")+6:str(video[3]).find("?")]+"/maxresdefault.jpg"
     
 
     g = str([i for i in dict])[1:-1].replace("'", "")
