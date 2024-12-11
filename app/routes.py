@@ -29,9 +29,6 @@ def index():
     page = int(request.args.get('page', 0))
     filter_values = dict(request.args)
 
-    print(request.args)
-
-
     if 'page' in filter_values:
 
         del filter_values['page']
@@ -39,8 +36,6 @@ def index():
 
     for video in videos:
 
-        print(video)
-        #if (len(filter_values) <= 1 or filter_values ):
         if len(filter_values) <= 1 or set([video[2], video[3]]).intersection(set(filter_values)):
 
             filtered_videos.append(video[4])
@@ -53,13 +48,17 @@ def index():
     if language == "ru":
 
         return render_template('index.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
+    
+
     elif language == "en":
+
         return render_template('translate.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
 
 #---------------------------------------------------------------------------------------------------------------- Login ----------------------------------------------------------------------------------------------------------------
 
 @main.route('/login')
 def login():
+    
     return render_template('log.html')
 
 #---------------------------------------------------------------------------------------------------------------- Login Check ----------------------------------------------------------------------------------------------------------------

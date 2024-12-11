@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -10,13 +11,14 @@
     <title>Login</title>
   </head>
   <body class="body_login">
-      <a href="#" class="link">back</a>
+      <a href="/" class="link">back</a>
       <div class="container_login">
         <a class="login">log in</a>
         <form action="/login_check" method="post">
           <input class="input_login" value="secret code" name="code"/>
+          <button class="button_login" type="submit">enter</button>
         </form>
-        <button class="button_login" type="submit">enter</button>
+        
     </div>
   </body>
 </html>
