@@ -18,3 +18,18 @@ class db:
         cursor = self.connection.cursor()
         cursor.execute(query)
         self.connection.commit()
+
+    def create(self):
+            cursor = self.connection.cursor()
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS groups (
+                    id SERIAL PRIMARY KEY,
+                    group_name TEXT,
+                    member TEXT,
+                    gender TEXT,
+                    video TEXT,
+                    preview TEXT,
+                    tags TEXT
+                )
+            """)
+            self.connection.commit()
