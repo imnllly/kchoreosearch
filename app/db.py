@@ -28,7 +28,7 @@ class db:
 
 
     def drop_create(self, table_name):
-        self.query("DROP TABLE "+table_name+";")
+        self.query("DROP TABLE IF EXISTS"+table_name+";")
         self.query("CREATE TABLE IF NOT EXISTS "+table_name+""" (
                 id SERIAL PRIMARY KEY,
                 group_name TEXT,
