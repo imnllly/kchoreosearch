@@ -13,7 +13,7 @@ sqlite_cur = sqlite_conn.cursor()
 db_instance = db("postgres")
 db_instance.drop_create("groups")
 
-sqlite_cur.execute("SELECT group_name, members, gender, video, prewew, tags FROM groups")
+sqlite_cur.execute("SELECT group_name, members, gender, video, prewew FROM groups")
 videos = sqlite_cur.fetchall()
 
 insert_query = "INSERT INTO groups ({0}) VALUES ({1});"
@@ -27,12 +27,6 @@ for video in videos:
     if(video[2]): dict["gender"] = video[2]
     if(video[3]): dict["video"] = video[3]
     if(video[4]): dict["preview"] = video[4]
-    if(video[5]):
-        s = ""
-        for tag in video[5].split(','):
-            if(not "members" in tag):
-                s+=tag
-        dict["tags"] = s
     
 
     g = str([i for i in dict])[1:-1].replace("'", "")
