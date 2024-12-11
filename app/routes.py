@@ -47,6 +47,26 @@ def index():
         print("анлак")
 
 
+@main.route('/login')
+def login():
+    return render_template('log.html')
+
+@main.route('/login_check', methods=['POST', 'GET'])
+def login_check():
+    code = request.form['code']
+    if(code==SECRET_CODE):
+        return render_template('admin_page.html')
+
+@main.route('/add', methods=['POST', 'GET'])
+def add():
+    group_name = request.form['group_name']
+    members_num = request.form['members_num']
+    gender = request.form['gender']
+    url = request.form['url']
+    print("INSERT INTO groups (group_name, member_num, gender, url) VALUES ('{0}', {1}, '{2}', '{3}');".format(group_name, members_num, gender, url))
+    connect.query("INSERT INTO groups (group_name, members_num, gender, url) VALUES ('{0}', {1}, '{2}', '{3}');".format(group_name, members_num, gender, url))
+    return redirect('/')
+
 
 @main.route('/translate')
 def translate_en():
@@ -58,4 +78,3 @@ def translate_en():
 def translate_rus():
 
     session["language"] = "ru"
-    return redirect("/")
