@@ -12,7 +12,7 @@ def index():
 
     search_query = request.args.get('q', "")
     
-    with sqlite3.connect("app/horeo.db") as conn:
+    with sqlite3.connect("horeo.db") as conn:
 
         cur = conn.cursor()
         print(search_query)
@@ -48,7 +48,7 @@ def translate():
 
     search_query = request.args.get('q', "")
 
-    with sqlite3.connect("app/horeo.db") as conn:
+    with sqlite3.connect("horeo.db") as conn:
 
         cur = conn.cursor()
         print(search_query)

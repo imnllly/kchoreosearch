@@ -12,6 +12,7 @@ class db:
             host="localhost",
             port="5432"
         )     
+        self.dbName = dbName
 
 
     def query(self, query):
@@ -19,15 +20,28 @@ class db:
         cursor.execute(query)
         self.connection.commit()
 
-    def create(self):
-            self.query("""
-                CREATE TABLE IF NOT EXISTS groups (
-                    id SERIAL PRIMARY KEY,
-                    group_name TEXT,
-                    member TEXT,
-                    gender TEXT,
-                    video TEXT,
-                    preview TEXT,
-                    tags TEXT
-                )
-            """)
+    def drop_create(self, table_name):
+        self.query("DROP TABLE "+table_name+";")
+        self.query("CREATE TABLE IF NOT EXISTS "+table_name+""" (
+                id SERIAL PRIMARY KEY,
+                group_name TEXT,
+                members_num TEXT,
+                gender TEXT,
+                video TEXT,
+                preview TEXT,
+                tags TEXT
+            )
+        """)
+
+    def create(self, table_name):
+        self.query("""
+            CREATE TABLE IF NOT EXISTS groups (
+                id SERIAL PRIMARY KEY,
+                group_name TEXT,
+                members_num TEXT,
+                gender TEXT,
+                video TEXT,
+                preview TEXT,
+                tags TEXT
+            )
+        """)
