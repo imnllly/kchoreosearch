@@ -13,9 +13,7 @@ sqlite_cur = sqlite_conn.cursor()
 db_instance = db("postgres")
 db_instance.create("elements")
 
-i = input("Get ready for pizdec!\n")
-
-while i!="0":
+while True:
 
     dict = {}
 
@@ -36,4 +34,4 @@ while i!="0":
     sqlite_cur.execute("insert into elements ({0}) values ({1});".format(g, v))
     db_instance.query("insert into elements ({0}) values ({1});".format(g, v))
     sqlite_conn.commit()
-    print("success!\n")
+    print("\nSuccess!\n")
