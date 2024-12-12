@@ -9,17 +9,17 @@ filter_groups = [
         "filters": [
             {
                 "name": "BOY GROUP",
-                "translate": "МУЖСКАЯ ГРУППА",
+                "translate": "МУЖСКАЯ",
                 "code": 'male'
             },
             {
                 "name": "GIRL GROUP",
-                "translate": "ЖЕНСКАЯ ГРУППА",
+                "translate": "ЖЕНСКАЯ",
                 "code": 'female'
             },
             { 
                 "name": "SWITCH GROUP",
-                "translate": "СОВМЕСТНАЯ ГРУППА",
+                "translate": "СОВМЕСТНАЯ",
                 "code": 'switch'
             }
         ]
