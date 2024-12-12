@@ -11,29 +11,17 @@ sqlite_conn = sqlite3.connect("app/old_db/horeo.db")
 sqlite_cur = sqlite_conn.cursor()
 
 db_instance = db("postgres")
-db_instance.drop_create("groups")
+db_instance.drop_create("elements")
 
-sqlite_cur.execute("SELECT group_name, members, gender, video, prewew FROM groups")
-videos = sqlite_cur.fetchall()
+sqlite_cur.execute("SELECT id, group_name, members_num, gender, video_url, preview_url, video_name FROM elements")
+elements = sqlite_cur.fetchall()
 
-insert_query = "INSERT INTO groups ({0}) VALUES ({1});"
-"https://www.youtube.com/embed/MHqOB-S7oGE?si=wMCekBrUd6w8nyWD"
-for video in videos:
+insert_query = "INSERT INTO elements (id, group_name, members_num, gender, video_url, preview_url, video_name) VALUES ({0});"
 
-    dict = {}
-
-    if(video[0]): dict["group_name"] = video[0]
-    if(video[1]): dict["members_num"] = video[1]
-    if(video[2]): dict["gender"] = video[2]
-    if(video[3]): 
-        dict["url"] = video[3]
-        dict["preview"] = "https://i.ytimg.com/vi/"+video[3][str(video[3]).find("embed/")+6:str(video[3]).find("?")]+"/maxresdefault.jpg"
+for element in elements:
     
-
-    g = str([i for i in dict])[1:-1].replace("'", "")
-    v = str([dict.get(i) for i in dict])[1:-1]
-
-    db_instance.query(insert_query.format(g, v))
+    v = str([element[el] for el in range(len(element))])[1:-1]
+    db_instance.query(insert_query.format(v))
 
 
 

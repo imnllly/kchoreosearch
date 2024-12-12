@@ -24,7 +24,7 @@ def index():
     gender = request.args.get('gender', "")
     number = request.args.get('number', "")
 
-    select_query = "SELECT * FROM groups WHERE group_name LIKE '%"+search+"%'{0}{1};"
+    select_query = "SELECT * FROM elements WHERE group_name LIKE '%"+search+"%'{0}{1};"
 
     if(gender!=""):gender=" and gender = '"+gender+"'"
     if(number!=""):number=" and members_num = '"+number+"'"
@@ -81,20 +81,20 @@ def login_check():
 
 #---------------------------------------------------------------------------------------------------------------- Add ----------------------------------------------------------------------------------------------------------------
 
-@main.route('/add', methods=['POST', 'GET'])
-def add():
-
-    group_name = request.form['group_name']
-    members_num = request.form['members_num']
-    gender = request.form['gender']
-    url = request.form['url']
-
-    if(members_num.isdigit() and gender!=""):
-        
-        connect.query("INSERT INTO groups (group_name, members_num, gender, url) VALUES ('{0}', {1}, '{2}', '{3}');".format(group_name, members_num, gender, url))
-    
-    
-    return redirect('/')
+#@main.route('/add', methods=['POST', 'GET'])
+#def add():
+#
+#    group_name = request.form['group_name']
+#    members_num = request.form['members_num']
+#    gender = request.form['gender']
+#    url = request.form['url']
+#
+#    if(members_num.isdigit() and gender!=""):
+#        
+#        connect.query("INSERT INTO elements (group_name, members_num, gender, url) VALUES ('{0}', {1}, '{2}', '{3}');".format(group_name, members_num, gender, url))
+#    
+#    
+#    return redirect('/')
 
 #---------------------------------------------------------------------------------------------------------------- Add ----------------------------------------------------------------------------------------------------------------
 
@@ -107,7 +107,7 @@ def get():
 
     if(id.isdigit()):
         
-        l = str(connect.select("SELECT * FROM groups WHERE id = {};".format(id))).replace("'", "")[2:-2].split(", ")
+        l = str(connect.select("SELECT * FROM elements WHERE id = {};".format(id))).replace("'", "")[2:-2].split(", ")
         
     
     return render_template('admin_get.html', list=l)
@@ -122,7 +122,7 @@ def remove():
 
     if(field_type!="" and value):
 
-        connect.query("DELETE FROM groups where {0} = '{1}';".format(field_type, value))
+        connect.query("DELETE FROM elements where {0} = '{1}';".format(field_type, value))
 
     return redirect('/')
 
