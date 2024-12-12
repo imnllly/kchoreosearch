@@ -30,23 +30,27 @@ class db:
     def drop_create(self, table_name):
         self.query("DROP TABLE IF EXISTS "+table_name+";")
         self.query("CREATE TABLE IF NOT EXISTS "+table_name+""" (
-                id SERIAL PRIMARY KEY,
-                group_name TEXT,
-                members_num TEXT,
-                gender TEXT,
-                url TEXT,
-                preview TEXT
-            )
+	        id TEXT NOT NULL,
+	        group_name TEXT NOT NULL,
+	        members_num INTEGER NOT NULL,
+	        gender TEXT NOT NULL,
+	        video_url TEXT NOT NULL,
+	        preview_url TEXT NOT NULL,
+	        video_name TEXT NOT NULL,
+	        CONSTRAINT elements_pk PRIMARY KEY (id)
+        );
         """)
 
 
     def create(self, table_name):
         self.query("CREATE TABLE IF NOT EXISTS "+table_name+""" (
-                id SERIAL PRIMARY KEY,
-                group_name TEXT,
-                members_num TEXT,
-                gender TEXT,
-                url TEXT,
-                preview TEXT
-            )
+	        id TEXT NOT NULL,
+	        group_name TEXT NOT NULL,
+	        members_num INTEGER NOT NULL,
+	        gender TEXT NOT NULL,
+	        video_url TEXT NOT NULL,
+	        preview_url TEXT NOT NULL,
+	        video_name TEXT NOT NULL,
+	        CONSTRAINT elements_pk PRIMARY KEY (id)
+        );
         """)
