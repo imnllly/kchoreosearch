@@ -30,7 +30,7 @@ def index():
     if(number!=""):number=" and members_num = '"+number+"'"
 
     videos = connect.select(select_query.format(gender, number))
-
+    preview = []
     filtered_videos = []
     page = int(request.args.get('page', 0))
     filter_values = dict(request.args)
@@ -39,10 +39,12 @@ def index():
 
         del filter_values['page']
 
-
+ 
     for video in videos:
-
-        filtered_videos.append(video[4])
+        
+        filtered_videos.append([video[4], video[5]])
+    print(filter_groups)
+    print(filtered_videos)
 
 
     pages = math.ceil(len(filtered_videos) / 12)
@@ -51,12 +53,12 @@ def index():
 
     if language == "ru":
 
-        return render_template('index.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
+        return render_template('index.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page,)
     
 
     elif language == "en":
 
-        return render_template('translate.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
+        return render_template('translate.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page,)
 
 #---------------------------------------------------------------------------------------------------------------- Login ----------------------------------------------------------------------------------------------------------------
 
