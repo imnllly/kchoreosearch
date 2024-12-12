@@ -43,8 +43,8 @@ def index():
     for video in videos:
         
         filtered_videos.append([video[4], video[5]])
-    print(filter_groups)
-    print(filtered_videos)
+    # print(filter_groups)
+    # print(filtered_videos)
 
 
     pages = math.ceil(len(filtered_videos) / 12)
@@ -74,9 +74,11 @@ def login_check():
 
     code = request.form['code']
 
-    if(code==SECRET_CODE):
+    if(code==SECRET_CODE_drop):
 
         return render_template('admin_remove.html')
+    elif(code == SECRET_CODE_add):
+        return render_template("admin_page.html")
     
 
     return redirect('/')

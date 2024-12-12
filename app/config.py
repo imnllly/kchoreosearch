@@ -1,6 +1,8 @@
 SECRET_KEY = "your_secret_key"
-SECRET_CODE = "2577c72d87c6b9e56ad75e8718431934"
+SECRET_CODE_add = "2577c72d87c6b9e56ad75e8718431934"
+SECRET_CODE_drop = "KXm9/YT.1nmLQXFP5Q:)"
 DATABASE_LOGIN = "postgres"
+
 DATABASE_PASSWORD = "147896313"
 filter_groups = [
     {
