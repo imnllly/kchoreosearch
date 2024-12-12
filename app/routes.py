@@ -24,13 +24,13 @@ def index():
     gender = request.args.get('gender', "")
     number = request.args.get('number', "")
 
-    select_query = "SELECT * FROM groups WHERE group_name LIKE '%"+search+"%'{0}{1};"
+    select_query = "SELECT * FROM elements WHERE group_name LIKE '%"+search+"%'{0}{1};"
 
     if(gender!=""):gender=" and gender = '"+gender+"'"
     if(number!=""):number=" and members_num = '"+number+"'"
 
     videos = connect.select(select_query.format(gender, number))
-
+    preview = []
     filtered_videos = []
     page = int(request.args.get('page', 0))
     filter_values = dict(request.args)
@@ -39,10 +39,10 @@ def index():
 
         del filter_values['page']
 
-
+ 
     for video in videos:
-
-        filtered_videos.append(video[4])
+        
+        filtered_videos.append([video[4], video[5]])
 
 
     pages = math.ceil(len(filtered_videos) / 12)
@@ -51,12 +51,12 @@ def index():
 
     if language == "ru":
 
-        return render_template('index.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
+        return render_template('index.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page,)
     
 
     elif language == "en":
 
-        return render_template('translate.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page)
+        return render_template('translate.html', videos=filtered_videos, filter_groups=filter_groups, pages=pages, page=page,)
 
 #---------------------------------------------------------------------------------------------------------------- Login ----------------------------------------------------------------------------------------------------------------
 
@@ -72,29 +72,31 @@ def login_check():
 
     code = request.form['code']
 
-    if(code==SECRET_CODE):
+    if(code==SECRET_CODE_drop):
 
-        return render_template('admin_get.html')
+        return render_template('admin_remove.html')
+    elif(code == SECRET_CODE_add):
+        return render_template("admin_page.html")
     
 
     return redirect('/')
 
 #---------------------------------------------------------------------------------------------------------------- Add ----------------------------------------------------------------------------------------------------------------
 
-@main.route('/add', methods=['POST', 'GET'])
-def add():
-
-    group_name = request.form['group_name']
-    members_num = request.form['members_num']
-    gender = request.form['gender']
-    url = request.form['url']
-
-    if(members_num.isdigit() and gender!=""):
-        
-        connect.query("INSERT INTO groups (group_name, members_num, gender, url) VALUES ('{0}', {1}, '{2}', '{3}');".format(group_name, members_num, gender, url))
-    
-    
-    return redirect('/')
+#@main.route('/add', methods=['POST', 'GET'])
+#def add():
+#
+#    group_name = request.form['group_name']
+#    members_num = request.form['members_num']
+#    gender = request.form['gender']
+#    url = request.form['url']
+#
+#    if(members_num.isdigit() and gender!=""):
+#        
+#        connect.query("INSERT INTO elements (group_name, members_num, gender, url) VALUES ('{0}', {1}, '{2}', '{3}');".format(group_name, members_num, gender, url))
+#    
+#    
+#    return redirect('/')
 
 #---------------------------------------------------------------------------------------------------------------- Add ----------------------------------------------------------------------------------------------------------------
 
@@ -107,7 +109,7 @@ def get():
 
     if(id.isdigit()):
         
-        l = str(connect.select("SELECT * FROM groups WHERE id = {};".format(id))).replace("'", "")[2:-2].split(", ")
+        l = str(connect.select("SELECT * FROM elements WHERE id = {};".format(id))).replace("'", "")[2:-2].split(", ")
         
     
     return render_template('admin_get.html', list=l)
@@ -122,7 +124,7 @@ def remove():
 
     if(field_type!="" and value):
 
-        connect.query("DELETE FROM groups where {0} = '{1}';".format(field_type, value))
+        connect.query("DELETE FROM elements where {0} = '{1}';".format(field_type, value))
 
     return redirect('/')
 
