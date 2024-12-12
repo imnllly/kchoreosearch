@@ -53,7 +53,7 @@
                                 <h5>{{ group['translate_title'] }}</h5>
 
                                     <center>
-                                        <select name="{{ group['title'] }}" id="{{ group['title'] }}">
+                                        <select class="select_main" name="{{ group['title'] }}" id="{{ group['title'] }}">
                                             <option value="">Выберите вариант</option>
                                             {% for filter in group['filters'] %}
                                                 <option value="{{ filter['code'] }}">{{filter['translate']}}</option>
