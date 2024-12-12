@@ -74,7 +74,7 @@ def login_check():
 
     if(code==SECRET_CODE):
 
-        return render_template('admin_remove.html')
+        return render_template('admin_get.html')
     
 
     return redirect('/')
@@ -95,6 +95,22 @@ def add():
     
     
     return redirect('/')
+
+#---------------------------------------------------------------------------------------------------------------- Add ----------------------------------------------------------------------------------------------------------------
+
+@main.route('/get', methods=['POST', 'GET'])
+def get():
+
+    id = request.form['id']
+
+    l = ""
+
+    if(id.isdigit()):
+        
+        l = str(connect.select("SELECT * FROM groups WHERE id = {};".format(id))).replace("'", "")[2:-2].split(", ")
+        
+    
+    return render_template('admin_get.html', list=l)
 
 #---------------------------------------------------------------------------------------------------------------- Remove ----------------------------------------------------------------------------------------------------------------
 
