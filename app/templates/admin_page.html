@@ -4,19 +4,22 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Admin</title>
   </head>
-  <body>
-    <form method="POST" action="/add">
-      <input name="group_name" placeholder="Название группы" />
-      <input name="members_num" placeholder="Количество участников" />
-      <select name="gender" id="gender">
-        <option value="">Гендер участников группы</option>
-        <option value="male">Мужской</option>
-        <option value="female">Женский</option>
-      </select>
-      <input name="url" placeholder="Ссылка на видео"/>
-      <input type="submit" value="Добавить в базу данных" />
-  </form>
+  <body class="body_main">
+    <center><div class="container_admin">
+        <form method="POST" action="/add">
+          <input class="placeholder_admin" name="url" placeholder="video url"/>
+          <input class="placeholder_admin" name="group_name" placeholder="group name" />
+          <input class="placeholder_admin" name="members_num" placeholder="members number" />
+          <select class="select_admin" name="gender" id="gender">
+            <option value="">gender</option>
+            <option value="male">male</option>
+            <option value="female">female</option>
+          </select>
+          <input class="submit_admin" type="submit" value="add to the database"/>
+        </form>
+    </div></center>
   </body>
 </html>

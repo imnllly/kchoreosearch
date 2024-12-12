@@ -48,21 +48,21 @@
 
 
                         <div class="tags">
-                            <form method="POST"></form>
+                            <form method="POST">
                                 {% for group in filter_groups %}
                                 <h5>{{ group['translate_title'] }}</h5>
 
                                     <center>
-                                            <select name="{{ group['title'] }}" id="{{ group['title'] }}">
-                                                <option value="">Выберите вариант</option>
-                                                {% for filter in group['filters'] %}
-                                                    <option value="{{ filter['code'] }}">{{filter['translate']}}</option>
-                                                {% endfor %}
-                                            </select>
+                                        <select name="{{ group['title'] }}" id="{{ group['title'] }}">
+                                            <option value="">Выберите вариант</option>
+                                            {% for filter in group['filters'] %}
+                                                <option value="{{ filter['code'] }}">{{filter['translate']}}</option>
+                                            {% endfor %}
+                                        </select>
                                     </center>
                                 {% endfor %}
                             </form>
-                            <input type="submit" class="submit_search" value="Поиск">
+                            <input type="submit" class="submit_search1" value="Поиск">
                         </div>
                     </div>
 
@@ -73,7 +73,7 @@
                             <input type="search" name="search" class="search" placeholder="Поиск результата"
                                    value="{{ request.args.get('search', '') }}">
 
-                            <input type="submit" class="submit_search" value="Поиск">
+                            <input type="submit" class="submit_search2" value="Поиск">
 
                         </div>
                         {% if videos %}

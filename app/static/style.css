@@ -65,10 +65,11 @@ p {
     padding: 10px;
     margin-bottom: 1em;
     width: 65%;
+    font-size: 120%;
     min-width: 100px;
 }
 
-.submit_search {
+.submit_search1 {
     height: 35px;
     min-width: 100px;
     background: #9DA2CE;
@@ -77,6 +78,17 @@ p {
     border: none;
     margin-top: 10px;
     width: 30%;
+    font-size: 50%;
+}
+
+.submit_search2 {
+    height: 35px;
+    min-width: 100px;
+    background: #9DA2CE;
+    border-radius: 20px;
+    color: #FBF2FD;
+    border: none;
+    margin-top: 10px;
 
 }
 
@@ -145,9 +157,9 @@ p {
 
 .searchbar {
     margin-bottom: 2em;
-    width: 100%;
-    align-items: center;
     text-align: center;
+    display: block;
+
 }
 
 .body_login {
@@ -212,4 +224,69 @@ p {
 
 input::placeholder {
     color: #e4dcf9;
+}
+
+.container_admin {
+    border-radius: 70px;
+    background-image: linear-gradient(180deg, #e4dcf9, #aa94ed 100%, #edd4f8);
+    padding: 20px;
+    margin: 20px;
+    width:50%;
+    margin-top: 10%;
+}
+
+input::placeholder {
+    text-transform: uppercase;
+    color: #e4dcf9;
+}
+
+.placeholder_admin {
+    font-size:200%;
+    border: none;
+    display: block;
+    background: #a38beb;
+    margin-top: 5%;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    text-align: center;
+    font-family: "Quicksand", sans-serif;
+    width: 65%;
+}
+
+.submit_admin {
+    background: #e4dcf9;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 20px;
+    color: #a38beb;
+    border: none;
+    font-family: "Quicksand", sans-serif;
+    font-size:160%;
+    margin-bottom: 5%;
+    margin-top: 10%;
+}
+
+.select_admin {
+    background: #a38beb;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 20px;
+    color: #e4dcf9;
+    border: none;
+    font-family: "Quicksand", sans-serif;
+    font-size: 170%;
+    margin-top: 5%;
+    width: 65%;
+    display: block;
+}
+.select_main {
+    background: #a38beb;
+    text-align: center;
+    border-radius: 20px;
+    color: #e4dcf9;
+    border: none;
+    font-family: "Quicksand", sans-serif;
+    width: 70%;
+    font-size: 50%;
 }
