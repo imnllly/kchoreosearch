@@ -33,9 +33,9 @@ def index():
     select_query = "SELECT * FROM elements WHERE group_name LIKE '%"+search+"%'{0}{1};"
 
     if(gender!=""):gender=" and gender = '"+gender+"'"
-    if(number!=""):number=" and members_num = '"+members_num+"'"
+    if(members_num!=""):members_num=" and members_num = '"+members_num+"'"
 
-    videos = connect.select(select_query.format(gender, number))
+    videos = connect.select(select_query.format(gender, members_num))
     #filtered_videos = [[video[i] for i in range(len(video))] for video in videos]
     filtered_videos = [[video[4], video[5]] for video in videos]
     page = int(request.args.get('page', 0))
