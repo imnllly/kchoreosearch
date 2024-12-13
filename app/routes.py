@@ -7,6 +7,8 @@ import requests
 main = Blueprint('main', __name__)
 
 connect = db()
+if(type(connect) is str):
+    connect = db("sqlite")
 
 #---------------------------------------------------------------------------------------------------------------- Main Page ----------------------------------------------------------------------------------------------------------------
 
@@ -94,9 +96,6 @@ def login_check():
 @main.route('/add', methods=['POST', 'GET'])
 def add():
 
-    global connect
-    if(type(connect) is str):connect = db("sqlite")
-
     if(request.form['members_num'].isdigit() and request.form['gender']!=""):
 
         dict = {}
@@ -131,9 +130,6 @@ def add():
 @main.route('/get', methods=['POST', 'GET'])
 def get():
 
-    global connect
-    if(type(connect) is str):connect = db("sqlite")
-
     url = request.form['url']
 
     l = str(connect.select("SELECT * FROM elements WHERE id = '{}';".format(url[url.find("video/")+6:-1]))).replace("'", "")[2:-2].split(", ")
@@ -144,9 +140,6 @@ def get():
 
 @main.route('/remove', methods=['POST', 'GET'])
 def remove():
-
-    global connect
-    if(type(connect) is str):connect = db("sqlite")
 
     url = request.form['url']
 

@@ -28,7 +28,6 @@ class db:
             except:     
                 
                 print("Can't connect to Postgres.")
-                self.forced_connect()
                 
 
         elif(selectDatabase=="sqlite"):
@@ -76,11 +75,6 @@ class db:
 
         self.drop(table_name)
         self.create(table_name)
-
-    def close(self):
-
-        self.connection.close()
-
 
     def create(self, table_name):
 

@@ -4,19 +4,23 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Admin</title>
   </head>
-  <body>
-    <form method="POST" action="/get">
-      <input name="url" placeholder="url"/>
-      <input type="submit" value="Найти данные"/>
-  </form>
-  <form method="GET">
-    <ul>
-    {% for el in list %}
-        <li>{{el}}</li>
-    {% endfor %}
-    </ul>
-  </form>
+  <body class="body_main">
+    <a href="/" class="link">back</a>
+    <center><div class="container_admin">
+        <form method="POST" action="/get">
+          <input class="placeholder_get" name="url" placeholder="url"/>
+          <input class="submit_get" type="submit" value="find the data"/>
+        </form>
+        <form method="GET">
+            <ul>
+            {% for el in list %}
+                <li class="list_get">{{el}}</li>
+            {% endfor %}
+            </ul>
+        </form>
+    </div></center>
   </body>
 </html>

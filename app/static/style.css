@@ -45,17 +45,14 @@
     text-align: center;
 }
 
-@font-face {
-    font-family: 'Bornia';
-    src: url('./bornia-bold.ttf') format('truetype');
-}
 
 p {
-    font-family: 'Bornia', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     color: #885DAB;
     font-size: 2vw;
     text-align: center;
     margin-bottom: 1em;
+    text-transform: uppercase;
 }
 
 .search {
@@ -81,6 +78,7 @@ p {
     margin-top: 10px;
     width: 30%;
     font-size: 50%;
+    text-transform: uppercase;
 }
 
 .submit_search2 {
@@ -91,7 +89,7 @@ p {
     color: #FBF2FD;
     border: none;
     margin-top: 10px;
-
+    text-transform: uppercase;
 }
 
 .submit_page {
@@ -104,10 +102,12 @@ p {
     width: 10%;
     margin-left: 50px;
     margin-top: 10px;
+    text-transform: uppercase;
 }
 
 .tags {
-    font-family: 'Bornia', sans-serif;
+    font-family: 'Quicksand', sans-serif;
+    text-transform: uppercase;
     color: #9774AF;
     font-size: 2vw;
 }
@@ -188,9 +188,9 @@ p {
 
 .searchbar {
     margin-bottom: 2em;
-    text-align: center;
     display: block;
-
+    width: 130%;
+    margin-left: 3%;
 }
 
 .body_login {
@@ -253,9 +253,20 @@ p {
     display: block;
 }
 
-input::placeholder {
+.select_login {
+    background: #6446a7;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 20px;
     color: #e4dcf9;
+    border: none;
+    font-family: "Quicksand", sans-serif;
+    font-size: 130%;
+    width: 20%;
+    margin-top: 2%;
+    display: block;
 }
+
 
 .container_admin {
     border-radius: 70px;
@@ -285,7 +296,7 @@ input::placeholder {
     font-size:200%;
     border: none;
     display: block;
-    background: #a38beb;
+    background: #6446a7;
     margin-top: 5%;
     border-radius: 20px;
     outline: none;
@@ -300,7 +311,7 @@ input::placeholder {
     text-transform: uppercase;
     text-align: center;
     border-radius: 20px;
-    color: #a38beb;
+    color: #6446a7;
     border: none;
     font-family: "Quicksand", sans-serif;
     font-size:160%;
@@ -309,7 +320,7 @@ input::placeholder {
 }
 
 .select_admin {
-    background: #a38beb;
+    background: #6446a7;
     text-transform: uppercase;
     text-align: center;
     border-radius: 20px;
@@ -321,6 +332,7 @@ input::placeholder {
     width: 65%;
     display: block;
 }
+
 .select_main {
     background: #a38beb;
     text-align: center;
@@ -328,6 +340,63 @@ input::placeholder {
     color: #e4dcf9;
     border: none;
     font-family: "Quicksand", sans-serif;
-    width: 70%;
-    font-size: 50%;
+    width: 90%;
+    font-size: 70%;
+    text-transform: uppercase;
+}
+
+.container_remove {
+    border-radius: 70px;
+    background-image: linear-gradient(180deg, #e4dcf9, #aa94ed 100%, #edd4f8);
+    padding: 20px;
+    margin: 20px;
+    width:50%;
+    margin-top: 15%;
+}
+
+.submit_remove {
+    background: #e4dcf9;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 20px;
+    color: #6446a7;
+    border: none;
+    font-family: "Quicksand", sans-serif;
+    font-size:160%;
+    margin-bottom: 5%;
+    margin-top: 5%;
+}
+
+.list_get {
+    color: #6446a7;
+    list-style: none;
+    font-family: "Quicksand", sans-serif;
+    font-size: 140%;
+}
+
+.placeholder_get {
+    font-size:200%;
+    border: none;
+    display: block;
+    background: #6446a7;
+    margin-top: 5%;
+    border-radius: 20px;
+    outline: none;
+    border: none;
+    text-align: center;
+    font-family: "Quicksand", sans-serif;
+    width: 65%;
+}
+
+.submit_get {
+    background: #e4dcf9;
+    text-transform: uppercase;
+    text-align: center;
+    border-radius: 20px;
+    color: #6446a7;
+    border: none;
+    font-family: "Quicksand", sans-serif;
+    font-size:140%;
+    margin-bottom: 5%;
+    margin-top: 5%;
 }
