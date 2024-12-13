@@ -79,23 +79,26 @@
 
                         </div>
                         {% if videos %}
-                            <div class="row" style="margin-left: 2.5%; margin-right: 2.5%;">
-                                {% for video, preview in videos %}
-                                    <div class="col-12 col-md-6">
-                                        <div class="video-container">
-                                            <img src="{{ preview }}" style="border-radius: 20px" alt="Превью видео" class="video-thumbnail" onclick="showPopup('{{ video }}')">
-                                        </div>
+                        <div class="row">
+                            {% for embed_url, preview_url, group_name, video_name, video_url in videos %}
+                                <div class="col-12 col-md-6">
+                                    <div class="video-container">
+                                        <img src="{{ preview_url }}" style="border-radius: 20px" alt="Превью видео" class="video-thumbnail" onclick="showPopup('{{ embed_url }}')">
                                     </div>
-                                {% endfor %}
-                            </div>
-
-                            <div id="popup-overlay">
-                                <div id="popup">
-                                    <iframe id="video-player" style="width: 100%;" src="" frameborder="0"></iframe>
-                                    <button onclick="hidePopup()">Закрыть окно</button>
+                                    <p style="display: flex; align-items: center; justify-content: space-between;">
+                                        <span>{{ group_name }} - {{ video_name }}</span>
+                                        <span id="message" style="margin-left: 10px;"></span>
+                                        <button class="button_url" onclick="copyUrl('{{ video_url }}')">URL</button>
+                                    </p>
                                 </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <div id="popup-overlay">
+                            <div id="popup">
+                                <iframe id="video-player" src="" frameborder="0"></iframe>
                             </div>
-
+                        </div>
                             <script>
                                 const popupOverlay = document.getElementById("popup-overlay");
                                 const videoPlayer = document.getElementById("video-player");
@@ -109,9 +112,31 @@
                                     popupOverlay.style.display = "none"; 
                                     videoPlayer.src = ""; 
                                 }
-                                
                                 popupOverlay.addEventListener("click", hidePopup);
+
+                                function copyUrl(videoUrl) {
+                                    event.preventDefault()
+                                    // Создаем временный элемент для копирования текста
+                                    const tempInput = document.createElement('textarea');
+                                    tempInput.value = videoUrl; // Получаем текст из параметра функции
+                                    document.body.appendChild(tempInput);
+
+                                    // Выделяем текст в временном элементе
+                                    tempInput.select();
+                                    tempInput.setSelectionRange(0, 99999); // Для мобильных устройств
+
+                                    // Копируем текст в буфер обмена
+                                    document.execCommand('copy');
+
+                                    // Удаляем временный элемент
+                                    document.body.removeChild(tempInput);
+
+                                    
+                                }
                             </script>
+                            
+
+
                         
 
                         {% if page > 0 %}
