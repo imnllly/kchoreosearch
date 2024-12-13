@@ -7,17 +7,15 @@ sys.path.insert(0, "app/")
 from config import *
 from db import db
 
-sqlite = db("sqlite")
 
+sqlite = db("sqlite")
 postgres = db("postgres")
-postgres.create("elements")
 
 while True:
 
     dict = {}
 
     url = input("Video url:\n")
-
 
     dict['id'] = url[url.find("video/")+6:-1]
     dict['group_name'] = input("Group name:\n").lower()
@@ -47,6 +45,5 @@ while True:
 
     sqlite.query("insert into elements ({0}) values ({1});".format(g, v))
     postgres.query("insert into elements ({0}) values ({1});".format(g, v))
-
 
     print("\nSuccess!\n")
