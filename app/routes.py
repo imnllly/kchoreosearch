@@ -14,8 +14,7 @@ connect = db()
 def index():
 
     global connect
-    if(type(connect) is str):
-        connect = db("sqlite")
+    if(type(connect) is str):connect = db("sqlite")
 
     if 'language' in session:
 
@@ -43,7 +42,7 @@ def index():
     if 'page' in filter_values:
 
         del filter_values['page']
-        
+
 
     pages = math.ceil(len(filtered_videos) / 12)
 
@@ -98,8 +97,7 @@ def login_check():
 def add():
 
     global connect
-    if(type(connect) is str):
-        connect = db("sqlite")
+    if(type(connect) is str):connect = db("sqlite")
 
     if(request.form['members_num'].isdigit() and request.form['gender']!=""):
 
@@ -135,8 +133,7 @@ def add():
 def get():
 
     global connect
-    if(type(connect) is str):
-        connect = db("sqlite")
+    if(type(connect) is str):connect = db("sqlite")
 
     url = request.form['url']
 
@@ -150,8 +147,7 @@ def get():
 def remove():
 
     global connect
-    if(type(connect) is str):
-        connect = db("sqlite")
+    if(type(connect) is str):connect = db("sqlite")
 
     url = request.form['url']
 
