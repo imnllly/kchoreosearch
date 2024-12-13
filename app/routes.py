@@ -13,9 +13,6 @@ connect = db()
 @main.route('/', methods=['POST', 'GET'])
 def index():
 
-    global connect
-    if(type(connect) is str):connect = db("sqlite")
-
     if 'language' in session:
 
         language = session['language']

@@ -28,6 +28,7 @@ class db:
             except:     
                 
                 print("Can't connect to Postgres.")
+                self.forced_connect()
                 
 
         elif(selectDatabase=="sqlite"):
@@ -39,7 +40,7 @@ class db:
                     
         try:
                 
-            self.connection = sqlite3.connect("app/old_db/horeo.db")
+            self.connection = sqlite3.connect("app/old_db/horeo.db", check_same_thread=False)
             self.db_status = "sqlite"
             self.cursor = self.connection.cursor()
 
@@ -75,6 +76,10 @@ class db:
 
         self.drop(table_name)
         self.create(table_name)
+
+    def close(self):
+
+        self.connection.close()
 
 
     def create(self, table_name):
