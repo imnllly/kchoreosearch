@@ -2,9 +2,11 @@ import math
 from flask import render_template, request, Blueprint, session, redirect
 from config import *
 from db import db
+import requests
 
 main = Blueprint('main', __name__)
-connect = db("postgres")
+
+connect = db()
 
 #---------------------------------------------------------------------------------------------------------------- Main Page ----------------------------------------------------------------------------------------------------------------
 
@@ -30,7 +32,6 @@ def index():
     if(number!=""):number=" and members_num = '"+number+"'"
 
     videos = connect.select(select_query.format(gender, number))
-    preview = []
     filtered_videos = []
     page = int(request.args.get('page', 0))
     filter_values = dict(request.args)
@@ -72,31 +73,45 @@ def login_check():
 
     code = request.form['code']
 
-    if(code==SECRET_CODE_drop):
+    if(code==SECRET_CODE):
 
-        return render_template('admin_remove.html')
-    elif(code == SECRET_CODE_add):
-        return render_template("admin_page.html")
+        return render_template('admin_add.html')
     
 
     return redirect('/')
 
 #---------------------------------------------------------------------------------------------------------------- Add ----------------------------------------------------------------------------------------------------------------
 
-#@main.route('/add', methods=['POST', 'GET'])
-#def add():
-#
-#    group_name = request.form['group_name']
-#    members_num = request.form['members_num']
-#    gender = request.form['gender']
-#    url = request.form['url']
-#
-#    if(members_num.isdigit() and gender!=""):
-#        
-#        connect.query("INSERT INTO elements (group_name, members_num, gender, url) VALUES ('{0}', {1}, '{2}', '{3}');".format(group_name, members_num, gender, url))
-#    
-#    
-#    return redirect('/')
+@main.route('/add', methods=['POST', 'GET'])
+def add():
+
+    if(request.form['members_num'].isdigit() and request.form['gender']!=""):
+
+        dict = {}
+
+        url = request.form['url']
+        dict['id'] = url[url.find("video/")+6:-1]
+        dict['group_name'] = request.form['group_name'].lower()
+        dict['members_num'] = int(request.form['members_num'])
+        dict['gender'] = request.form['gender']
+        dict['video_url'] = "https://rutube.ru/play/embed/"+dict.get('id')
+        req = requests.get("https://rutube.ru/api/video/{}/thumbnail/?r...".format(dict.get('id')))
+        dict['preview_url'] = req.text[req.text.find("url")+7:-2]
+        dict['video_name'] = request.form['video_name'].lower()
+
+        g = str([i for i in dict])[1:-1].replace("'", "")
+        v = str([dict.get(i) for i in dict])[1:-1]
+        
+        if(connect.get_db_status=="postgres"):
+
+            connect.query("insert into elements ({0}) values ({1});".format(g, v))
+    
+
+        sqlite = db("sqlite")
+        sqlite.query("insert into elements ({0}) values ({1});".format(g, v))
+    
+
+    return redirect('/')
 
 #---------------------------------------------------------------------------------------------------------------- Add ----------------------------------------------------------------------------------------------------------------
 
@@ -119,12 +134,18 @@ def get():
 @main.route('/remove', methods=['POST', 'GET'])
 def remove():
 
-    field_type = request.form['type']
-    value = request.form['value']
+    url = request.form['url']
 
-    if(field_type!="" and value):
+    if(url):
 
-        connect.query("DELETE FROM elements where {0} = '{1}';".format(field_type, value))
+        if(connect.get_db_status=="postgres"):
+
+            connect.query("DELETE FROM elements where id = '{0}';".format(url[url.find("video/")+6:-1]))
+
+
+        sqlite = db("sqlite")
+        connect.query("DELETE FROM elements where id = '{0}';".format(url[url.find("video/")+6:-1]))
+
 
     return redirect('/')
 

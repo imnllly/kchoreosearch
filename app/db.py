@@ -1,33 +1,86 @@
 import psycopg2
 from config import *
+import sqlite3
+
+def postgres_connect():
+
+    return psycopg2.connect(
+        dbname="postgres",
+        user=DATABASE_LOGIN,
+        password=DATABASE_PASSWORD,
+        host="localhost",
+        port="5432"
+    )
+
 
 class db:
 
-    def __init__(self, dbName):
+    def __init__(self, selectDatabase=""):
+        
+        if(selectDatabase==""):
 
-        self.connection = psycopg2.connect(
-            dbname=dbName,
-            user=DATABASE_LOGIN,
-            password=DATABASE_PASSWORD,
-            host="localhost",
-            port="5432"
-        )     
-        self.dbName = dbName
+            try:
+            
+                self.connection = postgres_connect()
+                self.db_status = "postgres"
+            
+            
+            except:     
+                
+                self.connection = sqlite3.connect("app/old_db/horeo.db")
+                self.db_status = "sqlite"
+            
 
+            self.cursor = self.connection.cursor()
+
+
+        elif(selectDatabase=="postgres"):
+
+            try:
+            
+                self.connection = postgres_connect()
+                self.db_status = "postgres"
+                self.cursor = self.connection.cursor()
+
+
+            except:
+
+                print("Can't connect to PostgrsSQL.")
+
+
+        elif(selectDatabase=="sqlite"):
+            
+            try:
+                
+                self.connection = sqlite3.connect("app/old_db/horeo.db")
+                self.db_status = "sqlite"
+                self.cursor = self.connection.cursor()
+
+            
+            except:
+
+                print("Can't connect to SQLite.")
+
+
+    def get_db_status(self):
+
+        return self.db_status
+    
 
     def query(self, query):
-        cursor = self.connection.cursor()
-        cursor.execute(query)
+
+        self.cursor.execute(query)
         self.connection.commit()
 
 
     def select(self, query):
-        cursor = self.connection.cursor()
-        cursor.execute(query)
-        return cursor.fetchall()
+
+        self.cursor.execute(query)
+        return self.cursor.fetchall()
 
 
     def drop_create(self, table_name):
+
         self.query("DROP TABLE IF EXISTS "+table_name+";")
         self.query("CREATE TABLE IF NOT EXISTS "+table_name+""" (
 	        id TEXT NOT NULL,
@@ -43,6 +96,7 @@ class db:
 
 
     def create(self, table_name):
+
         self.query("CREATE TABLE IF NOT EXISTS "+table_name+""" (
 	        id TEXT NOT NULL,
 	        group_name TEXT NOT NULL,

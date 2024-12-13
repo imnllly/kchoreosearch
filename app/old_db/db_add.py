@@ -5,21 +5,20 @@ import requests
 sys.path.insert(0, "app/")
 
 from config import *
-from db import *
+from db import db
 
-sqlite_conn = sqlite3.connect("app/old_db/horeo.db")
-sqlite_cur = sqlite_conn.cursor()
+sqlite = db("sqlite")
 
-db_instance = db("postgres")
-db_instance.create("elements")
+postgres = db("postgres")
+postgres.create("elements")
 
 while True:
 
     dict = {}
 
-    temp = input("Video url:\n")
+    url = input("Video url:\n")
 
-    dict['id'] = temp[temp.find("video/")+6:-1]
+    dict['id'] = url[url.find("video/")+6:-1]
     dict['group_name'] = input("Group name:\n").lower()
     dict['members_num'] = int(input("Members num:\n"))
     dict['gender'] = input("Gender:\n")
@@ -31,7 +30,8 @@ while True:
     g = str([i for i in dict])[1:-1].replace("'", "")
     v = str([dict.get(i) for i in dict])[1:-1]
 
-    sqlite_cur.execute("insert into elements ({0}) values ({1});".format(g, v))
-    db_instance.query("insert into elements ({0}) values ({1});".format(g, v))
-    sqlite_conn.commit()
+    sqlite.query("insert into elements ({0}) values ({1});".format(g, v))
+    postgres.query("insert into elements ({0}) values ({1});".format(g, v))
+
+
     print("\nSuccess!\n")
