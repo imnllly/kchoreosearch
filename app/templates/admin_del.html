@@ -4,12 +4,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Admin</title>
   </head>
-  <body>
-    <form method="POST" action="/remove">
-      <input name="url" placeholder="url"/>
-      <input type="submit" value="Удалить из базы данных"/>
-  </form>
+  <body class="body_main">
+    <a href="/" class="link">back</a>
+    <center><div class="container_remove">
+        <form method="POST" action="/remove">
+          <input class="placeholder_admin" name="url" placeholder="url"/>
+          <input class="submit_remove" type="submit" value="remove from the database"/>
+        </form>
+    </div></center>
   </body>
 </html>
