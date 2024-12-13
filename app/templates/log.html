@@ -16,6 +16,11 @@
       <a class="login">log in</a>
       <form action="/login_check" method="post">
         <center><input class="input_login" placeholder="secret code" name="code"/>
+          <select class="select_admin" name="type" id="type">
+            <option value="get">get</option>
+            <option value="add">add</option>
+            <option value="delete">delete</option>
+          </select>
         <button class="button_login" type="submit">enter</button>
         </center>
       </form>

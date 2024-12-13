@@ -15,38 +15,20 @@ def postgres_connect():
 
 class db:
 
-    def __init__(self, selectDatabase=""):
+    def __init__(self, selectDatabase="postgres"):
         
-        if(selectDatabase==""):
-
-            try:
-            
-                self.connection = postgres_connect()
-                self.db_status = "postgres"
-            
-            
-            except:     
-                
-                self.connection = sqlite3.connect("app/old_db/horeo.db")
-                self.db_status = "sqlite"
-            
-
-            self.cursor = self.connection.cursor()
-
-
-        elif(selectDatabase=="postgres"):
+        if(selectDatabase=="postgres"):
 
             try:
             
                 self.connection = postgres_connect()
                 self.db_status = "postgres"
                 self.cursor = self.connection.cursor()
-
-
-            except:
-
-                print("Can't connect to PostgrsSQL.")
-
+            
+            except:     
+                
+                print("Can't connect to Postgres.")
+                
 
         elif(selectDatabase=="sqlite"):
             
@@ -60,6 +42,20 @@ class db:
             except:
 
                 print("Can't connect to SQLite.")
+
+
+    def forced_connect(self):
+                    
+        try:
+                
+            self.connection = sqlite3.connect("app/old_db/horeo.db")
+            self.db_status = "sqlite"
+            self.cursor = self.connection.cursor()
+
+            
+        except:
+
+            print("Can't connect to SQLite.")
 
 
     def get_db_status(self):

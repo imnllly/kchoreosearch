@@ -13,6 +13,10 @@ connect = db()
 @main.route('/', methods=['POST', 'GET'])
 def index():
 
+    global connect
+    if(type(connect) is str):
+        connect = db("sqlite")
+
     if 'language' in session:
 
         language = session['language']
@@ -32,19 +36,14 @@ def index():
     if(number!=""):number=" and members_num = '"+number+"'"
 
     videos = connect.select(select_query.format(gender, number))
-    filtered_videos = []
+    filtered_videos = [[video[4], video[5]] for video in videos]
     page = int(request.args.get('page', 0))
     filter_values = dict(request.args)
 
     if 'page' in filter_values:
 
         del filter_values['page']
-
- 
-    for video in videos:
         
-        filtered_videos.append([video[4], video[5]])
-
 
     pages = math.ceil(len(filtered_videos) / 12)
 
@@ -72,10 +71,23 @@ def login():
 def login_check():
 
     code = request.form['code']
+    value = request.form['type']
 
     if(code==SECRET_CODE):
 
-        return render_template('admin_add.html')
+        if(value=="get"):
+
+            return render_template('admin_get.html')
+        
+
+        elif(value=="add"):
+
+            return render_template('admin_add.html')
+        
+
+        else:
+
+            return render_template('admin_del.html')
     
 
     return redirect('/')
@@ -84,6 +96,10 @@ def login_check():
 
 @main.route('/add', methods=['POST', 'GET'])
 def add():
+
+    global connect
+    if(type(connect) is str):
+        connect = db("sqlite")
 
     if(request.form['members_num'].isdigit() and request.form['gender']!=""):
 
@@ -102,13 +118,13 @@ def add():
         g = str([i for i in dict])[1:-1].replace("'", "")
         v = str([dict.get(i) for i in dict])[1:-1]
         
-        if(connect.get_db_status=="postgres"):
+        if(connect.get_db_status()=="postgres"):
 
-            connect.query("insert into elements ({0}) values ({1});".format(g, v))
-    
+            sqlite = db("sqlite")
+            sqlite.query("insert into elements ({0}) values ({1});".format(g, v))
 
-        sqlite = db("sqlite")
-        sqlite.query("insert into elements ({0}) values ({1});".format(g, v))
+
+        connect.query("insert into elements ({0}) values ({1});".format(g, v))
     
 
     return redirect('/')
@@ -118,15 +134,14 @@ def add():
 @main.route('/get', methods=['POST', 'GET'])
 def get():
 
-    id = request.form['id']
+    global connect
+    if(type(connect) is str):
+        connect = db("sqlite")
 
-    l = ""
+    url = request.form['url']
 
-    if(id.isdigit()):
+    l = str(connect.select("SELECT * FROM elements WHERE id = '{}';".format(url[url.find("video/")+6:-1]))).replace("'", "")[2:-2].split(", ")
         
-        l = str(connect.select("SELECT * FROM elements WHERE id = {};".format(id))).replace("'", "")[2:-2].split(", ")
-        
-    
     return render_template('admin_get.html', list=l)
 
 #---------------------------------------------------------------------------------------------------------------- Remove ----------------------------------------------------------------------------------------------------------------
@@ -134,16 +149,20 @@ def get():
 @main.route('/remove', methods=['POST', 'GET'])
 def remove():
 
+    global connect
+    if(type(connect) is str):
+        connect = db("sqlite")
+
     url = request.form['url']
 
     if(url):
 
         if(connect.get_db_status=="postgres"):
 
-            connect.query("DELETE FROM elements where id = '{0}';".format(url[url.find("video/")+6:-1]))
+            sqlite = db("sqlite")
+            sqlite.query("DELETE FROM elements where id = '{0}';".format(url[url.find("video/")+6:-1]))
 
 
-        sqlite = db("sqlite")
         connect.query("DELETE FROM elements where id = '{0}';".format(url[url.find("video/")+6:-1]))
 
 
