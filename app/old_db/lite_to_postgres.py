@@ -11,9 +11,9 @@ psotgres = db("postgres")
 
 psotgres.drop_create("elements")
 
-elements = sqlite.select("SELECT id, group_name, members_num, gender, video_url, preview_url, video_name FROM elements")
+elements = sqlite.select("SELECT * FROM elements")
 
-insert_query = "INSERT INTO elements (id, group_name, members_num, gender, video_url, preview_url, video_name) VALUES ({0});"
+insert_query = "INSERT INTO elements (id, group_name, members_num, gender, embed_url, preview_url, video_name, video_url) VALUES ({0});"
 
 for element in elements:
     

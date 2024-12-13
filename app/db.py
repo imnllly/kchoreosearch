@@ -32,16 +32,7 @@ class db:
 
         elif(selectDatabase=="sqlite"):
             
-            try:
-                
-                self.connection = sqlite3.connect("app/old_db/horeo.db")
-                self.db_status = "sqlite"
-                self.cursor = self.connection.cursor()
-
-            
-            except:
-
-                print("Can't connect to SQLite.")
+            self.forced_connect()
 
 
     def forced_connect(self):
@@ -75,20 +66,15 @@ class db:
         return self.cursor.fetchall()
 
 
+    def drop(self, table_name):
+        
+        self.query("DROP TABLE IF EXISTS "+table_name+";")
+
+
     def drop_create(self, table_name):
 
-        self.query("DROP TABLE IF EXISTS "+table_name+";")
-        self.query("CREATE TABLE IF NOT EXISTS "+table_name+""" (
-	        id TEXT NOT NULL,
-	        group_name TEXT NOT NULL,
-	        members_num INTEGER NOT NULL,
-	        gender TEXT NOT NULL,
-	        video_url TEXT NOT NULL,
-	        preview_url TEXT NOT NULL,
-	        video_name TEXT NOT NULL,
-	        CONSTRAINT elements_pk PRIMARY KEY (id)
-        );
-        """)
+        self.drop(table_name)
+        self.create(table_name)
 
 
     def create(self, table_name):
@@ -98,9 +84,10 @@ class db:
 	        group_name TEXT NOT NULL,
 	        members_num INTEGER NOT NULL,
 	        gender TEXT NOT NULL,
-	        video_url TEXT NOT NULL,
+	        embed_url TEXT NOT NULL,
 	        preview_url TEXT NOT NULL,
 	        video_name TEXT NOT NULL,
+            video_url TEXT NOT NULL,
 	        CONSTRAINT elements_pk PRIMARY KEY (id)
         );
         """)

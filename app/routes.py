@@ -108,10 +108,11 @@ def add():
         dict['group_name'] = request.form['group_name'].lower()
         dict['members_num'] = int(request.form['members_num'])
         dict['gender'] = request.form['gender']
-        dict['video_url'] = "https://rutube.ru/play/embed/"+dict.get('id')
+        dict['embed_url'] = "https://rutube.ru/play/embed/"+dict.get('id')
         req = requests.get("https://rutube.ru/api/video/{}/thumbnail/?r...".format(dict.get('id')))
         dict['preview_url'] = req.text[req.text.find("url")+7:-2]
         dict['video_name'] = request.form['video_name'].lower()
+        dict['video_url'] = url
 
         g = str([i for i in dict])[1:-1].replace("'", "")
         v = str([dict.get(i) for i in dict])[1:-1]
