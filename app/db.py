@@ -27,6 +27,7 @@ class db:
             
             except:     
                 
+                self.db_status = "error"
                 print("Can't connect to Postgres.")
                 
 
@@ -38,7 +39,8 @@ class db:
     def forced_connect(self):
                     
         try:
-                
+            
+            #self.connection = sqlite3.connect("../app/old_db/horeo.db", check_same_thread=False)
             self.connection = sqlite3.connect("app/old_db/horeo.db", check_same_thread=False)
             self.db_status = "sqlite"
             self.cursor = self.connection.cursor()
@@ -46,6 +48,7 @@ class db:
             
         except:
 
+            self.db_status = "error"
             print("Can't connect to SQLite.")
 
 
