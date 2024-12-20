@@ -5,7 +5,6 @@
     background-size: cover;
 }
 
-
 .container {
     display: flex;
     justify-content: center;
@@ -28,10 +27,11 @@
 }
 
 .translate_rus {
-    right: 90px;
+    right: 10px;
 }
-.log{
-    right: 150px;
+
+.log {
+    right: 120px;
 }
 
 .frame {
@@ -45,6 +45,9 @@
     text-align: center;
 }
 
+a {
+    font-family: 'Quicksand', sans-serif;
+}
 
 p {
     font-family: 'Quicksand', sans-serif;
@@ -68,19 +71,7 @@ p {
     min-width: 100px;
 }
 
-.submit_search1 {
-    height: 35px;
-    min-width: 100px;
-    background: #9DA2CE;
-    border-radius: 20px;
-    color: #FBF2FD;
-    border: none;
-    margin-top: 10px;
-    width: 30%;
-    font-size: 50%;
-    text-transform: uppercase;
-}
-
+.submit_search1,
 .submit_search2 {
     height: 35px;
     min-width: 100px;
@@ -90,6 +81,11 @@ p {
     border: none;
     margin-top: 10px;
     text-transform: uppercase;
+}
+
+.submit_search1 {
+    width: 30%;
+    font-size: 50%;
 }
 
 .submit_page {
@@ -106,7 +102,7 @@ p {
 }
 
 .tags {
-    font-family: 'Quicksand', sans-serif;
+
     text-transform: uppercase;
     color: #9774AF;
     font-size: 2vw;
@@ -114,8 +110,18 @@ p {
 
 .video-container {
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 */
+  padding-bottom: 56.25%;
   height: 0;
+}
+
+.videos-container {
+    display: flex;
+}
+
+.video-card {
+    margin-bottom: 20px;
+    width: 40%;
+    margin-bottom: 2em;
 }
 
 #popup-overlay {
@@ -131,12 +137,12 @@ p {
 }
 
 #popup {
-    width: 50%; /* Занимает 50% ширины экрана */
+    width: 50%;
     max-width: 800px;
-    /* background: white; */
     padding: 20px;
     border-radius: 10px;
     text-align: center;
+    aspect-ratio: 16 / 9;
 }
 
 .video-thumbnail {
@@ -152,39 +158,15 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  
-  
-  overflow: hidden; /* Скрывает часть видео, если оно выходит за пределы */
+  overflow: hidden;
 }
 
-.video-card {
-    width: 40%;
-    margin-bottom: 2em;
-}
-#popup-overlay {
-    display: none; /* Изначально скрываем оверлей */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    justify-content: center;
-    align-items: center;
-}
-
-#popup {
-    width: 50%; /* Занимает 50% ширины экрана */
-    max-width: 800px; /* Максимальная ширина для больших экранов */
-    aspect-ratio: 16 / 9; /* Соотношение сторон (например, 16:9 для видео) */
-}
 
 #video-player {
-    width: 100%; /* Занимает 100% ширины контейнера */
-    height: 100%; /* Занимает 100% высоты контейнера */
-    border: none; /* Убираем рамку */
+    width: 100%;
+    height: 100%;
+    border: none;
 }
-
 
 .searchbar {
     margin-bottom: 2em;
@@ -200,17 +182,10 @@ p {
     background-size: cover;
 }
 
-.container_login {
-    text-align: center;
-    margin-top: 15%;
-
-}
-
 .login {
     text-transform: uppercase;
     font-size: 450%;
     color: #452192;
-    font-family: "Quicksand", sans-serif;
 }
 
 .link {
@@ -219,9 +194,29 @@ p {
     margin-left: 93%;
     color: #452192;
     text-transform: uppercase;
-    font-family: "Quicksand", sans-serif;
 }
 
+.container_admin,
+.container_remove {
+    border-radius: 70px;
+    background-image: linear-gradient(180deg, #e4dcf9, #aa94ed 100%, #edd4f8);
+    padding: 20px;
+    margin: 20px;
+    width:50%;
+}
+
+.container_admin {
+    margin-top: 10%;
+}
+
+.container_remove {
+    margin-top: 15%;
+}
+
+.container_login {
+    text-align: center;
+    margin-top: 15%;
+}
 
 .input_login {
     text-transform: uppercase;
@@ -232,7 +227,6 @@ p {
     border: none;
     font-size: 150%;
     width: 50%;
-    font-family: "Quicksand", sans-serif;
     display: block;
     margin-bottom: 10px;
     width: 30%;
@@ -249,63 +243,49 @@ p {
     text-align: center;
     font-size: 120%;
     width: 10%;
-    font-family: "Quicksand", sans-serif;
     display: block;
 }
 
-.select_login {
-    background: #6446a7;
+.button_url {
+    background: transparent;
+    border: none !important;
+    color: #6940cf;
+}
+
+.select_admin,
+.select_login,
+.select_main {
     text-transform: uppercase;
     text-align: center;
     border-radius: 20px;
     color: #e4dcf9;
     border: none;
-    font-family: "Quicksand", sans-serif;
+}
+
+.select_main {
+    background: #a38beb;
+    width: 90%;
+    font-size: 70%;
+}
+
+.select_admin {
+    background: #6446a7;
+    font-size: 170%;
+    margin-top: 5%;
+    width: 65%;
+    display: block;
+}
+
+.select_login {
+    background: #6446a7;
     font-size: 130%;
     width: 20%;
     margin-top: 2%;
     display: block;
 }
 
-
-.container_admin {
-    border-radius: 70px;
-    background-image: linear-gradient(180deg, #e4dcf9, #aa94ed 100%, #edd4f8);
-    padding: 20px;
-    margin: 20px;
-    width:50%;
-    margin-top: 10%;
-}
-
-input::placeholder {
-    text-transform: uppercase;
-    color: #e4dcf9;
-}
-.button_url {
-
-    background: transparent;
-    border: none !important;
-    color: #6940cf;
-    
-    /* font-size: 120%;
-    width: 10%; */
-    font-family: "Quicksand", sans-serif;
-    
-}​
-.placeholder_admin {
-    font-size:200%;
-    border: none;
-    display: block;
-    background: #6446a7;
-    margin-top: 5%;
-    border-radius: 20px;
-    outline: none;
-    border: none;
-    text-align: center;
-    font-family: "Quicksand", sans-serif;
-    width: 65%;
-}
-
+.submit_remove,
+.submit_get,
 .submit_admin {
     background: #e4dcf9;
     text-transform: uppercase;
@@ -313,68 +293,25 @@ input::placeholder {
     border-radius: 20px;
     color: #6446a7;
     border: none;
-    font-family: "Quicksand", sans-serif;
-    font-size:160%;
     margin-bottom: 5%;
+}
+
+.submit_admin {
+    font-size:160%;
     margin-top: 10%;
 }
 
-.select_admin {
-    background: #6446a7;
-    text-transform: uppercase;
-    text-align: center;
-    border-radius: 20px;
-    color: #e4dcf9;
-    border: none;
-    font-family: "Quicksand", sans-serif;
-    font-size: 170%;
-    margin-top: 5%;
-    width: 65%;
-    display: block;
-}
-
-.select_main {
-    background: #a38beb;
-    text-align: center;
-    border-radius: 20px;
-    color: #e4dcf9;
-    border: none;
-    font-family: "Quicksand", sans-serif;
-    width: 90%;
-    font-size: 70%;
-    text-transform: uppercase;
-}
-
-.container_remove {
-    border-radius: 70px;
-    background-image: linear-gradient(180deg, #e4dcf9, #aa94ed 100%, #edd4f8);
-    padding: 20px;
-    margin: 20px;
-    width:50%;
-    margin-top: 15%;
-}
-
 .submit_remove {
-    background: #e4dcf9;
-    text-transform: uppercase;
-    text-align: center;
-    border-radius: 20px;
-    color: #6446a7;
-    border: none;
-    font-family: "Quicksand", sans-serif;
     font-size:160%;
-    margin-bottom: 5%;
     margin-top: 5%;
 }
 
-.list_get {
-    color: #6446a7;
-    list-style: none;
-    font-family: "Quicksand", sans-serif;
-    font-size: 140%;
+.submit_get {
+    font-size:140%;
+    margin-top: 5%;
 }
 
-.placeholder_get {
+.placeholder {
     font-size:200%;
     border: none;
     display: block;
@@ -384,19 +321,16 @@ input::placeholder {
     outline: none;
     border: none;
     text-align: center;
-    font-family: "Quicksand", sans-serif;
     width: 65%;
 }
 
-.submit_get {
-    background: #e4dcf9;
+input::placeholder {
     text-transform: uppercase;
-    text-align: center;
-    border-radius: 20px;
+    color: #e4dcf9;
+}
+
+.list_get {
     color: #6446a7;
-    border: none;
-    font-family: "Quicksand", sans-serif;
-    font-size:140%;
-    margin-bottom: 5%;
-    margin-top: 5%;
+    list-style: none;
+    font-size: 140%;
 }
