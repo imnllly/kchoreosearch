@@ -129,8 +129,8 @@ def add():
 def get():
 
     url = request.form['url']
-
-    l = str(connect.select("SELECT * FROM elements WHERE id = '{}';".format(url[url.find("video/")+6:-1]))).replace("'", "")[2:-2].split(", ")
+    
+    l = str(connect.select("SELECT * FROM elements WHERE id = '{}';".format(url[url.find("video/")+6:]))).replace("'", "")[2:-2].split(", ")
         
     return render_template('admin_get.html', list=l)
 
